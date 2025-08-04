@@ -78,53 +78,53 @@ export function EquipmentLeaseCalculator({ onResultsChange, className }: Equipme
 
   const watchedValues = watch()
 
-  const debouncedCalculate = useDebouncedCallback(useCallback(() => {
-    const values = getValues()
-    
+  const calculateResults = useCallback((values: LeaseFormData) => {
     try {
       leaseSchema.parse(values)
-      setIsCalculating(true)
+      const monthlyPayment = calculateLeasePayment(
+        values.equipmentCost, 
+        values.factorRate, 
+        values.termMonths, 
+        values.residualValue
+      )
       
-      // Simulate calculation delay for better UX
-      setTimeout(() => {
-        const monthlyPayment = calculateLeasePayment(
-          values.equipmentCost, 
-          values.factorRate, 
-          values.termMonths, 
-          values.residualValue
-        )
-        
-        const totalPayments = monthlyPayment * values.termMonths
-        const totalCost = totalPayments + values.residualValue // If purchased
-        
-        const calculationResults: LeaseCalculatorResults = {
-          monthlyPayment,
-          totalPayments,
-          totalCost,
-          endOfLeaseOptions: endOfLeaseOptions.map(option => ({
-            ...option,
-            cost: option.type === 'purchase' 
-              ? values.residualValue 
-              : option.type === 'extend'
-              ? values.equipmentCost * (option.costPercentage / 100)
-              : 0
-          }))
-        }
-        
-        setResults(calculationResults)
-        onResultsChange?.(calculationResults)
-        setIsCalculating(false)
-      }, 50)
+      const totalPayments = monthlyPayment * values.termMonths
+      const totalCost = totalPayments + values.residualValue // If purchased
+      
+      return {
+        monthlyPayment,
+        totalPayments,
+        totalCost,
+        endOfLeaseOptions: endOfLeaseOptions.map(option => ({
+          ...option,
+          cost: option.type === 'purchase' 
+            ? values.residualValue 
+            : option.type === 'extend'
+            ? values.equipmentCost * (option.costPercentage / 100)
+            : 0
+        }))
+      }
     } catch {
+      return null
+    }
+  }, [])
+
+  const debouncedCalculate = useDebouncedCallback(() => {
+    const values = getValues()
+    const calculationResults = calculateResults(values)
+    
+    if (calculationResults) {
+      setResults(calculationResults)
+      onResultsChange?.(calculationResults)
+    } else {
       setResults(null)
       onResultsChange?.(null)
-      setIsCalculating(false)
     }
-  }, [getValues, onResultsChange]), 150)
+  }, 150)
 
   useEffect(() => {
     debouncedCalculate()
-  }, [watchedValues, debouncedCalculate])
+  }, [watchedValues.equipmentCost, watchedValues.factorRate, watchedValues.termMonths, watchedValues.residualValue, debouncedCalculate])
 
   const residualPercentage = (watchedValues.residualValue / watchedValues.equipmentCost) * 100
   const factorRatePercent = watchedValues.factorRate * 100
@@ -252,25 +252,8 @@ export function EquipmentLeaseCalculator({ onResultsChange, className }: Equipme
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <AnimatePresence mode="wait">
-              {isCalculating ? (
-                <motion.div
-                  key="loading"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="flex items-center justify-center py-8"
-                >
-                  <LoadingSpinner size="lg" />
-                </motion.div>
-              ) : results ? (
-                <motion.div
-                  key="results"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  className="space-y-4"
-                >
+            {results ? (
+              <div className="space-y-4">
                   <div className="grid grid-cols-1 gap-4">
                     <div className="bg-gradient-to-r from-green-500 to-blue-500 p-6 rounded-xl text-white">
                       <div className="flex items-center gap-2 mb-2">
@@ -335,19 +318,12 @@ export function EquipmentLeaseCalculator({ onResultsChange, className }: Equipme
                       )}
                     </AnimatePresence>
                   </div>
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="empty"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="text-center py-8 text-muted-foreground"
-                >
-                  Enter equipment details to see lease calculations
-                </motion.div>
-              )}
-            </AnimatePresence>
+              </div>
+            ) : (
+              <div className="text-center py-8 text-muted-foreground">
+                Enter equipment details to see lease calculations
+              </div>
+            )}
           </CardContent>
         </Card>
       </div>

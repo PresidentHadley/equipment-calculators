@@ -74,42 +74,42 @@ export function EquipmentLoanCalculator({ onResultsChange, className }: Equipmen
 
   const watchedValues = watch()
 
-  const debouncedCalculate = useDebouncedCallback(useCallback(() => {
-    const values = getValues()
-    
+  const calculateResults = useCallback((values: LoanFormData) => {
     try {
       loanSchema.parse(values)
-      setIsCalculating(true)
+      const loanAmount = values.equipmentCost - values.downPayment
+      const monthlyPayment = calculateMonthlyPayment(loanAmount, values.interestRate, values.termMonths)
+      const totalInterest = calculateTotalInterest(loanAmount, monthlyPayment, values.termMonths)
+      const totalCost = loanAmount + totalInterest + values.downPayment
+      const amortizationSchedule = generateAmortizationSchedule(loanAmount, values.interestRate, values.termMonths)
       
-      // Simulate calculation delay for better UX
-      setTimeout(() => {
-        const loanAmount = values.equipmentCost - values.downPayment
-        const monthlyPayment = calculateMonthlyPayment(loanAmount, values.interestRate, values.termMonths)
-        const totalInterest = calculateTotalInterest(loanAmount, monthlyPayment, values.termMonths)
-        const totalCost = loanAmount + totalInterest + values.downPayment
-        const amortizationSchedule = generateAmortizationSchedule(loanAmount, values.interestRate, values.termMonths)
-        
-        const calculationResults: LoanCalculatorResults = {
-          monthlyPayment,
-          totalInterest,
-          totalCost,
-          amortizationSchedule
-        }
-        
-        setResults(calculationResults)
-        onResultsChange?.(calculationResults)
-        setIsCalculating(false)
-      }, 50)
+      return {
+        monthlyPayment,
+        totalInterest,
+        totalCost,
+        amortizationSchedule
+      }
     } catch {
+      return null
+    }
+  }, [])
+
+  const debouncedCalculate = useDebouncedCallback(() => {
+    const values = getValues()
+    const calculationResults = calculateResults(values)
+    
+    if (calculationResults) {
+      setResults(calculationResults)
+      onResultsChange?.(calculationResults)
+    } else {
       setResults(null)
       onResultsChange?.(null)
-      setIsCalculating(false)
     }
-  }, [getValues, onResultsChange]), 150)
+  }, 150)
 
   useEffect(() => {
     debouncedCalculate()
-  }, [watchedValues, debouncedCalculate])
+  }, [watchedValues.equipmentCost, watchedValues.downPayment, watchedValues.interestRate, watchedValues.termMonths, debouncedCalculate])
 
   const loanAmount = watchedValues.equipmentCost - watchedValues.downPayment
   const downPaymentPercentage = (watchedValues.downPayment / watchedValues.equipmentCost) * 100
@@ -223,25 +223,8 @@ export function EquipmentLoanCalculator({ onResultsChange, className }: Equipmen
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <AnimatePresence mode="wait">
-              {isCalculating ? (
-                <motion.div
-                  key="loading"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="flex items-center justify-center py-8"
-                >
-                  <LoadingSpinner size="lg" />
-                </motion.div>
-              ) : results ? (
-                <motion.div
-                  key="results"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  className="space-y-4"
-                >
+            {results ? (
+              <div className="space-y-4">
                   <div className="grid grid-cols-1 gap-4">
                     <div className="bg-gradient-to-r from-blue-500 to-green-500 p-6 rounded-xl text-white">
                       <div className="flex items-center gap-2 mb-2">
@@ -304,19 +287,12 @@ export function EquipmentLoanCalculator({ onResultsChange, className }: Equipmen
                       )}
                     </AnimatePresence>
                   </div>
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="empty"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="text-center py-8 text-muted-foreground"
-                >
-                  Enter equipment details to see loan calculations
-                </motion.div>
-              )}
-            </AnimatePresence>
+              </div>
+            ) : (
+              <div className="text-center py-8 text-muted-foreground">
+                Enter equipment details to see loan calculations
+              </div>
+            )}
           </CardContent>
         </Card>
       </div>

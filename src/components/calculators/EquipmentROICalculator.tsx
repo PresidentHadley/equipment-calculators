@@ -72,44 +72,46 @@ export function EquipmentROICalculator({ onResultsChange, className }: Equipment
 
   const watchedValues = watch()
 
-  const debouncedCalculate = useDebouncedCallback(useCallback(() => {
-    const values = getValues()
-    
+  const calculateResults = useCallback((values: ROIFormData) => {
     try {
       roiSchema.parse(values)
-      setIsCalculating(true)
       
-      setTimeout(() => {
-        const roiCalc = calculateROI(
-          values.equipmentCost,
-          values.monthlyRevenue,
-          values.monthlyExpenses,
-          values.termMonths
-        )
-        
-        // Calculate break-even month (when cumulative profit equals initial investment)
-        const monthlyProfit = values.monthlyRevenue - values.monthlyExpenses
-        const breakEvenMonth = monthlyProfit > 0 ? Math.ceil(values.equipmentCost / monthlyProfit) : 0
-        
-        const calculationResults: ROICalculatorResults = {
-          ...roiCalc,
-          breakEvenMonth
-        }
-        
-        setResults(calculationResults)
-        onResultsChange?.(calculationResults)
-        setIsCalculating(false)
-      }, 50)
+      const roiCalc = calculateROI(
+        values.equipmentCost,
+        values.monthlyRevenue,
+        values.monthlyExpenses,
+        values.termMonths
+      )
+      
+      // Calculate break-even month (when cumulative profit equals initial investment)
+      const monthlyProfit = values.monthlyRevenue - values.monthlyExpenses
+      const breakEvenMonth = monthlyProfit > 0 ? Math.ceil(values.equipmentCost / monthlyProfit) : 0
+      
+      return {
+        ...roiCalc,
+        breakEvenMonth
+      }
     } catch {
+      return null
+    }
+  }, [])
+
+  const debouncedCalculate = useDebouncedCallback(() => {
+    const values = getValues()
+    const calculationResults = calculateResults(values)
+    
+    if (calculationResults) {
+      setResults(calculationResults)
+      onResultsChange?.(calculationResults)
+    } else {
       setResults(null)
       onResultsChange?.(null)
-      setIsCalculating(false)
     }
-  }, [getValues, onResultsChange]), 150)
+  }, 150)
 
   useEffect(() => {
     debouncedCalculate()
-  }, [watchedValues, debouncedCalculate])
+  }, [watchedValues.equipmentCost, watchedValues.monthlyRevenue, watchedValues.monthlyExpenses, watchedValues.termMonths, debouncedCalculate])
 
   const monthlyProfit = watchedValues.monthlyRevenue - watchedValues.monthlyExpenses
   const annualProfit = monthlyProfit * 12
@@ -249,25 +251,8 @@ export function EquipmentROICalculator({ onResultsChange, className }: Equipment
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <AnimatePresence mode="wait">
-              {isCalculating ? (
-                <motion.div
-                  key="loading"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="flex items-center justify-center py-8"
-                >
-                  <LoadingSpinner size="lg" />
-                </motion.div>
-              ) : results ? (
-                <motion.div
-                  key="results"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  className="space-y-4"
-                >
+            {results ? (
+              <div className="space-y-4">
                   <div className="grid grid-cols-1 gap-4">
                     {/* ROI Display */}
                     <div className={`p-6 rounded-xl text-white ${
@@ -375,19 +360,12 @@ export function EquipmentROICalculator({ onResultsChange, className }: Equipment
                       )}
                     </AnimatePresence>
                   </div>
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="empty"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="text-center py-8 text-muted-foreground"
-                >
-                  Enter equipment details to see ROI analysis
-                </motion.div>
-              )}
-            </AnimatePresence>
+              </div>
+            ) : (
+              <div className="text-center py-8 text-muted-foreground">
+                Enter equipment details to see ROI analysis
+              </div>
+            )}
           </CardContent>
         </Card>
       </div>

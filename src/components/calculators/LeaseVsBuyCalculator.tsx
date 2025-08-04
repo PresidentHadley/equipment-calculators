@@ -80,84 +80,87 @@ export function LeaseVsBuyCalculator({ onResultsChange, className }: LeaseVsBuyC
 
   const watchedValues = watch()
 
-  const debouncedCalculate = useDebouncedCallback(useCallback(() => {
-    const values = getValues()
-    
+  const calculateResults = useCallback((values: ComparisonFormData) => {
     try {
       comparisonSchema.parse(values)
-      setIsCalculating(true)
       
-      setTimeout(() => {
-        // Loan calculations
-        const loanAmount = values.equipmentCost - values.downPayment
-        const loanMonthlyPayment = calculateMonthlyPayment(loanAmount, values.loanRate, values.loanTermMonths)
-        const loanTotalInterest = calculateTotalInterest(loanAmount, loanMonthlyPayment, values.loanTermMonths)
-        const loanTotalCost = loanAmount + loanTotalInterest + values.downPayment
+      // Loan calculations
+      const loanAmount = values.equipmentCost - values.downPayment
+      const loanMonthlyPayment = calculateMonthlyPayment(loanAmount, values.loanRate, values.loanTermMonths)
+      const loanTotalInterest = calculateTotalInterest(loanAmount, loanMonthlyPayment, values.loanTermMonths)
+      const loanTotalCost = loanAmount + loanTotalInterest + values.downPayment
+      
+      // Lease calculations
+      const leaseMonthlyPayment = calculateLeasePayment(
+        values.equipmentCost, 
+        values.leaseFactorRate, 
+        values.leaseTermMonths, 
+        values.residualValue
+      )
+      const leaseTotalPayments = leaseMonthlyPayment * values.leaseTermMonths
+      const leaseTotalCost = leaseTotalPayments + values.residualValue // If purchased at end
+      
+      // Generate amortization for loan only (lease doesn't build equity)
+      const loanAmortization = []
+      let remainingBalance = loanAmount
+      const monthlyRate = values.loanRate / 100 / 12
+      
+      for (let month = 1; month <= values.loanTermMonths; month++) {
+        const interestPayment = remainingBalance * monthlyRate
+        const principalPayment = loanMonthlyPayment - interestPayment
+        remainingBalance -= principalPayment
         
-        // Lease calculations
-        const leaseMonthlyPayment = calculateLeasePayment(
-          values.equipmentCost, 
-          values.leaseFactorRate, 
-          values.leaseTermMonths, 
-          values.residualValue
-        )
-        const leaseTotalPayments = leaseMonthlyPayment * values.leaseTermMonths
-        const leaseTotalCost = leaseTotalPayments + values.residualValue // If purchased at end
-        
-        // Generate amortization for loan only (lease doesn't build equity)
-        const loanAmortization = []
-        let remainingBalance = loanAmount
-        const monthlyRate = values.loanRate / 100 / 12
-        
-        for (let month = 1; month <= values.loanTermMonths; month++) {
-          const interestPayment = remainingBalance * monthlyRate
-          const principalPayment = loanMonthlyPayment - interestPayment
-          remainingBalance -= principalPayment
-          
-          loanAmortization.push({
-            month,
-            payment: loanMonthlyPayment,
-            principal: principalPayment,
-            interest: interestPayment,
-            balance: Math.max(0, remainingBalance),
-          })
-        }
-        
-        const calculationResults: ComparisonResults = {
-          loan: {
-            monthlyPayment: loanMonthlyPayment,
-            totalInterest: loanTotalInterest,
-            totalCost: loanTotalCost,
-            amortizationSchedule: loanAmortization
-          },
-          lease: {
-            monthlyPayment: leaseMonthlyPayment,
-            totalPayments: leaseTotalPayments,
-            totalCost: leaseTotalCost,
-            endOfLeaseOptions: [
-              { type: 'return', cost: 0, description: 'Return equipment' },
-              { type: 'purchase', cost: values.residualValue, description: 'Purchase for residual value' },
-              { type: 'extend', cost: values.equipmentCost * 0.15, description: 'Extend lease (fair market value)' }
-            ]
-          },
-          recommendation: loanTotalCost < leaseTotalCost ? 'loan' : 'lease',
-          savings: Math.abs(loanTotalCost - leaseTotalCost)
-        }
-        
-        setResults(calculationResults)
-        onResultsChange?.(calculationResults)
-        setIsCalculating(false)
-      }, 50)
+        loanAmortization.push({
+          month,
+          payment: loanMonthlyPayment,
+          principal: principalPayment,
+          interest: interestPayment,
+          balance: Math.max(0, remainingBalance),
+        })
+      }
+      
+      return {
+        loan: {
+          monthlyPayment: loanMonthlyPayment,
+          totalInterest: loanTotalInterest,
+          totalCost: loanTotalCost,
+          amortizationSchedule: loanAmortization
+        },
+        lease: {
+          monthlyPayment: leaseMonthlyPayment,
+          totalPayments: leaseTotalPayments,
+          totalCost: leaseTotalCost,
+          endOfLeaseOptions: [
+            { type: 'return' as const, cost: 0, description: 'Return equipment' },
+            { type: 'purchase' as const, cost: values.residualValue, description: 'Purchase for residual value' },
+            { type: 'extend' as const, cost: values.equipmentCost * 0.15, description: 'Extend lease (fair market value)' }
+          ]
+        },
+        recommendation: (loanTotalCost < leaseTotalCost ? 'loan' : 'lease') as 'loan' | 'lease',
+        savings: Math.abs(loanTotalCost - leaseTotalCost)
+      }
     } catch {
+      return null
+    }
+  }, [])
+
+  const debouncedCalculate = useDebouncedCallback(() => {
+    const values = getValues()
+    const calculationResults = calculateResults(values)
+    
+    if (calculationResults) {
+      setResults(calculationResults)
+      onResultsChange?.(calculationResults)
+    } else {
       setResults(null)
       onResultsChange?.(null)
-      setIsCalculating(false)
     }
-  }, [getValues, onResultsChange]), 150)
+  }, 150)
 
   useEffect(() => {
     debouncedCalculate()
-  }, [watchedValues, debouncedCalculate])
+  }, [watchedValues.equipmentCost, watchedValues.downPayment, watchedValues.loanRate, watchedValues.loanTermMonths, 
+      watchedValues.leaseFactorRate, watchedValues.leaseTermMonths, watchedValues.residualValue, debouncedCalculate])
 
   const loanAmount = watchedValues.equipmentCost - watchedValues.downPayment
   const downPaymentPercentage = (watchedValues.downPayment / watchedValues.equipmentCost) * 100
@@ -303,25 +306,8 @@ export function LeaseVsBuyCalculator({ onResultsChange, className }: LeaseVsBuyC
 
         {/* Results Display */}
         <div className="xl:col-span-2 space-y-6">
-          <AnimatePresence mode="wait">
-            {isCalculating ? (
-              <motion.div
-                key="loading"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="flex items-center justify-center py-12"
-              >
-                <LoadingSpinner size="lg" />
-              </motion.div>
-            ) : results ? (
-              <motion.div
-                key="results"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                className="space-y-6"
-              >
+          {results ? (
+            <div className="space-y-6">
                 {/* Recommendation Card */}
                 <Card className={`border-2 ${results.recommendation === 'loan' ? 'border-blue-500 bg-blue-50' : 'border-green-500 bg-green-50'}`}>
                   <CardHeader>
@@ -519,19 +505,12 @@ export function LeaseVsBuyCalculator({ onResultsChange, className }: LeaseVsBuyC
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </motion.div>
-            ) : (
-              <motion.div
-                key="empty"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="text-center py-12 text-muted-foreground"
-              >
-                Enter equipment details to compare financing options
-              </motion.div>
-            )}
-          </AnimatePresence>
+            </div>
+          ) : (
+            <div className="text-center py-12 text-muted-foreground">
+              Enter equipment details to compare financing options
+            </div>
+          )}
         </div>
       </div>
     </div>
