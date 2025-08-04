@@ -1,0 +1,48 @@
+{
+  "name": "Equipment Calculators - Free Equipment Financing Calculators",
+  "short_name": "Equipment Calculators",
+  "description": "Free equipment financing calculators built by a 20+ year industry expert. Calculate loan payments, lease options, and compare scenarios.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "orientation": "portrait-primary",
+  "categories": ["finance", "business", "utilities"],
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512x512.png", 
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Equipment Loan Calculator",
+      "short_name": "Loan Calculator",
+      "description": "Calculate equipment loan payments",
+      "url": "/calculators/equipment-loan",
+      "icons": [{ "src": "/icon-192x192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Equipment Lease Calculator", 
+      "short_name": "Lease Calculator",
+      "description": "Calculate equipment lease payments",
+      "url": "/calculators/equipment-lease",
+      "icons": [{ "src": "/icon-192x192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Lease vs Buy Calculator",
+      "short_name": "Lease vs Buy",
+      "description": "Compare leasing vs buying equipment",
+      "url": "/calculators/lease-vs-buy", 
+      "icons": [{ "src": "/icon-192x192.png", "sizes": "192x192" }]
+    }
+  ]
+}

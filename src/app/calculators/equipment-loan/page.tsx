@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import { EquipmentLoanCalculator } from '@/components/calculators/EquipmentLoanCalculator'
+import { CalculatorStructuredData, FAQStructuredData, BreadcrumbStructuredData } from '@/components/seo/StructuredData'
 
 export const metadata: Metadata = {
   title: 'Equipment Loan Calculator - Free Equipment Financing Calculator | EquipmentCalculators.com',
@@ -19,8 +20,43 @@ export const metadata: Metadata = {
 }
 
 export default function EquipmentLoanPage() {
+  const faqs = [
+    {
+      question: "How accurate are these calculations?",
+      answer: "Our calculator uses standard loan formulas and provides estimates within 1-2% of actual lender quotes. Final rates and terms will depend on your credit score, business history, and lender policies."
+    },
+    {
+      question: "What's a typical down payment for equipment loans?",
+      answer: "Most equipment loans require 10-30% down. New equipment typically requires 10-20%, while used equipment may require 20-30%. Some SBA loans allow as little as 10% down."
+    },
+    {
+      question: "What interest rates can I expect?",
+      answer: "Equipment loan rates typically range from 3-15% depending on your credit score, business history, equipment type, and loan term. SBA loans often offer the lowest rates."
+    },
+    {
+      question: "Can I save my calculations?",
+      answer: "Currently, calculations are not saved automatically. We recommend taking a screenshot or writing down your results. Future updates will include save functionality."
+    }
+  ]
+
+  const breadcrumbs = [
+    { name: "Home", url: "https://equipmentcalculators.com" },
+    { name: "Calculators", url: "https://equipmentcalculators.com/#calculators" },
+    { name: "Equipment Loan Calculator", url: "https://equipmentcalculators.com/calculators/equipment-loan" }
+  ]
+
   return (
-    <div className="container mx-auto px-4 py-8 max-w-7xl">
+    <>
+      <CalculatorStructuredData
+        calculatorType="equipment-loan"
+        title="Equipment Loan Calculator"
+        description="Calculate monthly payments, total interest, and amortization schedules for equipment financing"
+        url="https://equipmentcalculators.com/calculators/equipment-loan"
+      />
+      <FAQStructuredData faqs={faqs} />
+      <BreadcrumbStructuredData items={breadcrumbs} />
+      
+      <div className="container mx-auto px-4 py-8 max-w-7xl">
       {/* Hero Section */}
       <div className="text-center mb-8">
         <h1 className="text-4xl md:text-5xl font-bold mb-4">
@@ -162,5 +198,6 @@ export default function EquipmentLoanPage() {
         </div>
       </div>
     </div>
+    </>
   )
 }

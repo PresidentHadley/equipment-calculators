@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { Calculator } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { MobileMenu } from "@/components/ui/mobile-menu"
 
 export function Header() {
   return (
@@ -28,11 +29,14 @@ export function Header() {
           </Link>
         </nav>
 
-        <Button asChild size="sm" className="bg-gradient-to-r from-blue-500 to-green-500 hover:from-blue-600 hover:to-green-600">
-          <Link href="/calculators/equipment-loan">
-            Start Calculating
-          </Link>
-        </Button>
+        <div className="flex items-center gap-4">
+          <Button asChild size="sm" className="hidden sm:flex bg-gradient-to-r from-blue-500 to-green-500 hover:from-blue-600 hover:to-green-600">
+            <Link href="/calculators/equipment-loan">
+              Start Calculating
+            </Link>
+          </Button>
+          <MobileMenu />
+        </div>
       </div>
     </header>
   )

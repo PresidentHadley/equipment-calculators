@@ -2,6 +2,7 @@ import Link from "next/link"
 import { Calculator, TrendingUp, DollarSign, BarChart3, PieChart, Wrench, Users } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { InstallPrompt } from "@/components/ui/install-prompt"
 
 const calculators = [
   {
@@ -215,6 +216,8 @@ export default function Home() {
           </Button>
         </div>
       </section>
+      
+      <InstallPrompt />
     </div>
   )
 }
