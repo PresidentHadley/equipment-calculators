@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -80,7 +80,7 @@ export function LeaseVsBuyCalculator({ onResultsChange, className }: LeaseVsBuyC
 
   const watchedValues = watch()
 
-  const debouncedCalculate = useDebouncedCallback(() => {
+  const debouncedCalculate = useDebouncedCallback(useCallback(() => {
     const values = getValues()
     
     try {
@@ -153,7 +153,7 @@ export function LeaseVsBuyCalculator({ onResultsChange, className }: LeaseVsBuyC
       onResultsChange?.(null)
       setIsCalculating(false)
     }
-  }, 150)
+  }, [getValues, onResultsChange]), 150)
 
   useEffect(() => {
     debouncedCalculate()
@@ -320,7 +320,7 @@ export function LeaseVsBuyCalculator({ onResultsChange, className }: LeaseVsBuyC
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                className="calculator-result space-y-6"
+                className="space-y-6"
               >
                 {/* Recommendation Card */}
                 <Card className={`border-2 ${results.recommendation === 'loan' ? 'border-blue-500 bg-blue-50' : 'border-green-500 bg-green-50'}`}>

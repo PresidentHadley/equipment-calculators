@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -74,7 +74,7 @@ export function EquipmentLoanCalculator({ onResultsChange, className }: Equipmen
 
   const watchedValues = watch()
 
-  const debouncedCalculate = useDebouncedCallback(() => {
+  const debouncedCalculate = useDebouncedCallback(useCallback(() => {
     const values = getValues()
     
     try {
@@ -105,7 +105,7 @@ export function EquipmentLoanCalculator({ onResultsChange, className }: Equipmen
       onResultsChange?.(null)
       setIsCalculating(false)
     }
-  }, 150)
+  }, [getValues, onResultsChange]), 150)
 
   useEffect(() => {
     debouncedCalculate()
@@ -240,7 +240,7 @@ export function EquipmentLoanCalculator({ onResultsChange, className }: Equipmen
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
-                  className="calculator-result space-y-4"
+                  className="space-y-4"
                 >
                   <div className="grid grid-cols-1 gap-4">
                     <div className="bg-gradient-to-r from-blue-500 to-green-500 p-6 rounded-xl text-white">

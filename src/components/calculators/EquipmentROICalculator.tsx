@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -72,7 +72,7 @@ export function EquipmentROICalculator({ onResultsChange, className }: Equipment
 
   const watchedValues = watch()
 
-  const debouncedCalculate = useDebouncedCallback(() => {
+  const debouncedCalculate = useDebouncedCallback(useCallback(() => {
     const values = getValues()
     
     try {
@@ -105,7 +105,7 @@ export function EquipmentROICalculator({ onResultsChange, className }: Equipment
       onResultsChange?.(null)
       setIsCalculating(false)
     }
-  }, 150)
+  }, [getValues, onResultsChange]), 150)
 
   useEffect(() => {
     debouncedCalculate()
@@ -266,7 +266,7 @@ export function EquipmentROICalculator({ onResultsChange, className }: Equipment
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
-                  className="calculator-result space-y-4"
+                  className="space-y-4"
                 >
                   <div className="grid grid-cols-1 gap-4">
                     {/* ROI Display */}

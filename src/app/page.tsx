@@ -116,11 +116,12 @@ export default function Home() {
       <section className="py-20 px-4">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">
               Equipment Financing Calculators
             </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Professional-grade calculators to help you make informed equipment purchase and lease decisions.
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              Professional-grade calculators built from 20+ years of industry experience. Get instant, accurate numbers 
+              to make informed equipment purchase and lease decisions—no email required.
             </p>
           </div>
           
@@ -200,13 +201,13 @@ export default function Home() {
 
       {/* CTA Section */}
       <section className="py-20 px-4">
-        <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+        <div className="container mx-auto max-w-5xl text-center">
+          <h2 className="text-3xl md:text-5xl font-bold mb-8 leading-tight">
             Ready to Get Your Equipment Numbers?
           </h2>
-          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Start with our most popular calculator and get instant financing estimates. 
-            No email required, completely free to use.
+          <p className="text-xl md:text-2xl text-muted-foreground mb-10 max-w-4xl mx-auto leading-relaxed">
+            Start with our most popular calculator and get instant, accurate financing estimates. 
+            Built by an industry expert with 20+ years experience—no email required, completely free to use.
           </p>
           <Button size="lg" asChild className="bg-gradient-to-r from-blue-500 to-green-500 hover:from-blue-600 hover:to-green-600 text-white shadow-lg">
             <Link href="/calculators/equipment-loan">
