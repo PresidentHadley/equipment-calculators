@@ -107,12 +107,12 @@ export default function LeaseVsBuyPage() {
             <table className="w-full bg-white rounded-lg shadow-sm border border-gray-200">
               <thead>
                 <tr className="bg-gray-50 border-b">
-                  <th className="text-left p-4 font-semibold">Equipment Type</th>
-                  <th className="text-right p-4 font-semibold">Equipment Cost</th>
-                  <th className="text-center p-4 font-semibold">Loan Payment</th>
-                  <th className="text-center p-4 font-semibold">Lease Payment</th>
-                  <th className="text-center p-4 font-semibold">Recommendation</th>
-                  <th className="text-right p-4 font-semibold">Savings</th>
+                  <th className="text-left p-4 font-semibold text-gray-900">Equipment Type</th>
+                  <th className="text-right p-4 font-semibold text-gray-900">Equipment Cost</th>
+                  <th className="text-center p-4 font-semibold text-gray-900">Loan Payment</th>
+                  <th className="text-center p-4 font-semibold text-gray-900">Lease Payment</th>
+                  <th className="text-center p-4 font-semibold text-gray-900">Recommendation</th>
+                  <th className="text-right p-4 font-semibold text-gray-900">Savings</th>
                 </tr>
               </thead>
               <tbody>
@@ -120,18 +120,18 @@ export default function LeaseVsBuyPage() {
                   <tr key={index} className="border-b hover:bg-gray-50">
                     <td className="p-4">
                       <div>
-                        <div className="font-medium">{example.equipment}</div>
-                        <div className="text-sm text-muted-foreground">{example.description}</div>
+                        <div className="font-medium text-gray-900">{example.equipment}</div>
+                        <div className="text-sm text-gray-600">{example.description}</div>
                       </div>
                     </td>
-                    <td className="text-right p-4 font-medium">${example.amount.toLocaleString()}</td>
+                    <td className="text-right p-4 font-medium text-gray-900">${example.amount.toLocaleString()}</td>
                     <td className="text-center p-4">
-                      <div className="text-sm text-muted-foreground">{example.loanRate}% • {example.loanTerm}yr</div>
-                      <div className="font-medium">${example.loanPayment}/mo</div>
+                      <div className="text-sm text-gray-600">{example.loanRate}% • {example.loanTerm}yr</div>
+                      <div className="font-medium text-gray-900">${example.loanPayment}/mo</div>
                     </td>
                     <td className="text-center p-4">
-                      <div className="text-sm text-muted-foreground">{(example.leaseRate * 100).toFixed(1)}% • {example.leaseTerm}yr</div>
-                      <div className="font-medium">${example.leasePayment}/mo</div>
+                      <div className="text-sm text-gray-600">{(example.leaseRate * 100).toFixed(1)}% • {example.leaseTerm}yr</div>
+                      <div className="font-medium text-gray-900">${example.leasePayment}/mo</div>
                     </td>
                     <td className="text-center p-4">
                       <span className={`px-3 py-1 rounded-full text-sm font-medium ${

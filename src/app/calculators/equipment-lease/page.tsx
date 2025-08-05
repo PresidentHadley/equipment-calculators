@@ -105,13 +105,13 @@ export default function EquipmentLeasePage() {
             <table className="w-full bg-white rounded-lg shadow-sm border border-gray-200">
               <thead>
                 <tr className="bg-gray-50 border-b">
-                  <th className="text-left p-4 font-semibold">Equipment Type</th>
-                  <th className="text-right p-4 font-semibold">Equipment Value</th>
-                  <th className="text-right p-4 font-semibold">Factor Rate</th>
-                  <th className="text-right p-4 font-semibold">Term</th>
-                  <th className="text-right p-4 font-semibold">Residual Value</th>
-                  <th className="text-right p-4 font-semibold">Monthly Payment</th>
-                  <th className="text-right p-4 font-semibold">Total Payments</th>
+                  <th className="text-left p-4 font-semibold text-gray-900">Equipment Type</th>
+                  <th className="text-right p-4 font-semibold text-gray-900">Equipment Value</th>
+                  <th className="text-right p-4 font-semibold text-gray-900">Factor Rate</th>
+                  <th className="text-right p-4 font-semibold text-gray-900">Term</th>
+                  <th className="text-right p-4 font-semibold text-gray-900">Residual Value</th>
+                  <th className="text-right p-4 font-semibold text-gray-900">Monthly Payment</th>
+                  <th className="text-right p-4 font-semibold text-gray-900">Total Payments</th>
                 </tr>
               </thead>
               <tbody>
@@ -119,16 +119,16 @@ export default function EquipmentLeasePage() {
                   <tr key={index} className="border-b hover:bg-gray-50">
                     <td className="p-4">
                       <div>
-                        <div className="font-medium">{example.equipment}</div>
-                        <div className="text-sm text-muted-foreground">{example.description}</div>
+                        <div className="font-medium text-gray-900">{example.equipment}</div>
+                        <div className="text-sm text-gray-600">{example.description}</div>
                       </div>
                     </td>
-                    <td className="text-right p-4 font-medium">${example.amount.toLocaleString()}</td>
-                    <td className="text-right p-4">{(example.factorRate * 100).toFixed(2)}%</td>
-                    <td className="text-right p-4">{example.term} years</td>
-                    <td className="text-right p-4">${example.residual.toLocaleString()}</td>
+                    <td className="text-right p-4 font-medium text-gray-900">${example.amount.toLocaleString()}</td>
+                    <td className="text-right p-4 text-gray-900">{(example.factorRate * 100).toFixed(2)}%</td>
+                    <td className="text-right p-4 text-gray-900">{example.term} years</td>
+                    <td className="text-right p-4 text-gray-900">${example.residual.toLocaleString()}</td>
                     <td className="text-right p-4 font-semibold text-green-600">${example.monthlyPayment.toLocaleString()}</td>
-                    <td className="text-right p-4 font-medium">${example.totalPayments.toLocaleString()}</td>
+                    <td className="text-right p-4 font-medium text-gray-900">${example.totalPayments.toLocaleString()}</td>
                   </tr>
                 ))}
               </tbody>
