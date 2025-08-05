@@ -68,7 +68,7 @@ export default function Home() {
             The Equipment Calculators I Wish I Had 20 Years Ago
           </div>
           
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight text-gray-900">
             Make Smart Equipment
             <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-green-600">
@@ -76,7 +76,7 @@ export default function Home() {
             </span>
           </h1>
           
-          <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-700 mb-8 max-w-3xl mx-auto">
             Get instant equipment financing numbers before talking to lenders. 
             Calculate payments, compare options, and make informed decisions with tools built by someone who&apos;s been there.
           </p>
@@ -95,7 +95,7 @@ export default function Home() {
             </Button>
           </div>
           
-          <div className="flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
+          <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-600">
             <span className="flex items-center gap-1">
               ✓ No email required
             </span>
@@ -112,15 +112,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Calculator Grid */}
+            {/* Calculator Grid */}
       <section className="py-20 px-4">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900">
               Equipment Financing Calculators
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              Professional-grade calculators built from 20+ years of industry experience. Get instant, accurate numbers 
+            <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+              Professional-grade calculators built from 20+ years of industry experience. Get instant, accurate numbers
               to make informed equipment purchase and lease decisions—no email required.
             </p>
           </div>
@@ -140,8 +140,8 @@ export default function Home() {
                     <div className={`w-12 h-12 rounded-lg bg-gradient-to-r ${calc.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
                       <IconComponent className="h-6 w-6 text-white" />
                     </div>
-                    <CardTitle className="text-xl mb-2">{calc.title}</CardTitle>
-                    <CardDescription className="text-muted-foreground">
+                    <CardTitle className="text-xl mb-2 text-gray-900">{calc.title}</CardTitle>
+                    <CardDescription className="text-gray-600">
                       {calc.description}
                     </CardDescription>
                   </CardHeader>
@@ -149,7 +149,7 @@ export default function Home() {
                   <CardContent>
                     <ul className="space-y-2 mb-6">
                       {calc.features.map((feature, idx) => (
-                        <li key={idx} className="flex items-center text-sm text-muted-foreground">
+                        <li key={idx} className="flex items-center text-sm text-gray-600">
                           <span className="w-1.5 h-1.5 bg-green-500 rounded-full mr-2"></span>
                           {feature}
                         </li>
@@ -172,26 +172,26 @@ export default function Home() {
       {/* Trust Signals */}
       <section className="bg-muted py-16 px-4">
         <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-3xl font-bold mb-8">Built by Someone Who&apos;s Been There</h2>
+          <h2 className="text-3xl font-bold mb-8 text-gray-900">Built by Someone Who&apos;s Been There</h2>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="space-y-4">
               <DollarSign className="h-12 w-12 text-green-600 mx-auto" />
-              <h3 className="text-xl font-semibold">20+ Years Experience</h3>
-              <p className="text-muted-foreground">
+              <h3 className="text-xl font-semibold text-gray-900">20+ Years Experience</h3>
+              <p className="text-gray-600">
                 Two decades of equipment financing experience across multiple industries and business types.
               </p>
             </div>
             <div className="space-y-4">
               <Calculator className="h-12 w-12 text-blue-600 mx-auto" />
-              <h3 className="text-xl font-semibold">Developer-Built Tools</h3>
-              <p className="text-muted-foreground">
+              <h3 className="text-xl font-semibold text-gray-900">Developer-Built Tools</h3>
+              <p className="text-gray-600">
                 I learned to code specifically to build these calculators. No guesswork, just proven formulas.
               </p>
             </div>
             <div className="space-y-4">
               <Users className="h-12 w-12 text-purple-600 mx-auto" />
-              <h3 className="text-xl font-semibold">Vetted Lender Network</h3>
-              <p className="text-muted-foreground">
+              <h3 className="text-xl font-semibold text-gray-900">Vetted Lender Network</h3>
+              <p className="text-gray-600">
                 Connect with my personally vetted network of equipment financing specialists when you&apos;re ready.
               </p>
             </div>
@@ -202,10 +202,10 @@ export default function Home() {
       {/* CTA Section */}
       <section className="py-20 px-4">
         <div className="container mx-auto max-w-5xl text-center">
-          <h2 className="text-3xl md:text-5xl font-bold mb-8 leading-tight">
+          <h2 className="text-3xl md:text-5xl font-bold mb-8 leading-tight text-gray-900">
             Ready to Get Your Equipment Numbers?
           </h2>
-          <p className="text-xl md:text-2xl text-muted-foreground mb-10 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-xl md:text-2xl text-gray-700 mb-10 max-w-4xl mx-auto leading-relaxed">
             Start with our most popular calculator and get instant, accurate financing estimates. 
             Built by an industry expert with 20+ years experience—no email required, completely free to use.
           </p>
