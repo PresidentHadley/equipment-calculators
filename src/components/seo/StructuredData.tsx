@@ -8,6 +8,7 @@ interface CalculatorStructuredDataProps {
 }
 
 export function CalculatorStructuredData({
+  calculatorType,
   title,
   description,
   url

@@ -19,6 +19,62 @@ export const metadata: Metadata = {
 }
 
 export default function LeaseVsBuyPage() {
+  // Common lease vs buy comparison examples
+  const comparisonExamples = [
+    {
+      equipment: "Small Business IT Setup",
+      amount: 25000,
+      loanRate: 12,
+      loanTerm: 4,
+      loanPayment: 658,
+      leaseRate: 0.030,
+      leaseTerm: 3,
+      leasePayment: 750,
+      recommendation: "Lease",
+      savings: 2280,
+      description: "Computers, servers, networking equipment"
+    },
+    {
+      equipment: "Medical Practice Equipment",
+      amount: 100000,
+      loanRate: 10,
+      loanTerm: 7,
+      loanPayment: 1661,
+      leaseRate: 0.025,
+      leaseTerm: 5,
+      leasePayment: 2500,
+      recommendation: "Loan",
+      savings: 18540,
+      description: "X-ray machines, diagnostic equipment"
+    },
+    {
+      equipment: "Manufacturing Machinery",
+      amount: 200000,
+      loanRate: 9,
+      loanTerm: 7,
+      loanPayment: 3217,
+      leaseRate: 0.022,
+      leaseTerm: 5,
+      leasePayment: 4400,
+      recommendation: "Loan",
+      savings: 28980,
+      description: "CNC machines, automated production lines"
+    },
+    {
+      equipment: "Restaurant Equipment",
+      amount: 75000,
+      loanRate: 11,
+      loanTerm: 5,
+      loanPayment: 1636,
+      leaseRate: 0.035,
+      leaseTerm: 3,
+      leasePayment: 2625,
+      recommendation: "Loan",
+      savings: 15540,
+      description: "Commercial kitchen, POS systems, seating"
+    }
+  ]
+
   return (
     <div className="container mx-auto px-4 py-8 max-w-7xl">
       {/* Hero Section */}
@@ -37,6 +93,117 @@ export default function LeaseVsBuyPage() {
           <span>✓ Mobile optimized</span>
         </div>
       </div>
+
+      {/* Common Lease vs Buy Examples Section */}
+      <section className="mb-12">
+        <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl p-8">
+          <h2 className="text-3xl font-bold text-center mb-6">Common Lease vs Buy Scenarios</h2>
+          <p className="text-lg text-muted-foreground text-center mb-8 max-w-4xl mx-auto">
+            See real comparisons between leasing and buying equipment across different industries. 
+            These examples show typical scenarios and which option typically provides better value.
+          </p>
+          
+          <div className="overflow-x-auto">
+            <table className="w-full bg-white rounded-lg shadow-sm border border-gray-200">
+              <thead>
+                <tr className="bg-gray-50 border-b">
+                  <th className="text-left p-4 font-semibold">Equipment Type</th>
+                  <th className="text-right p-4 font-semibold">Equipment Cost</th>
+                  <th className="text-center p-4 font-semibold">Loan Payment</th>
+                  <th className="text-center p-4 font-semibold">Lease Payment</th>
+                  <th className="text-center p-4 font-semibold">Recommendation</th>
+                  <th className="text-right p-4 font-semibold">Savings</th>
+                </tr>
+              </thead>
+              <tbody>
+                {comparisonExamples.map((example, index) => (
+                  <tr key={index} className="border-b hover:bg-gray-50">
+                    <td className="p-4">
+                      <div>
+                        <div className="font-medium">{example.equipment}</div>
+                        <div className="text-sm text-muted-foreground">{example.description}</div>
+                      </div>
+                    </td>
+                    <td className="text-right p-4 font-medium">${example.amount.toLocaleString()}</td>
+                    <td className="text-center p-4">
+                      <div className="text-sm text-muted-foreground">{example.loanRate}% • {example.loanTerm}yr</div>
+                      <div className="font-medium">${example.loanPayment}/mo</div>
+                    </td>
+                    <td className="text-center p-4">
+                      <div className="text-sm text-muted-foreground">{(example.leaseRate * 100).toFixed(1)}% • {example.leaseTerm}yr</div>
+                      <div className="font-medium">${example.leasePayment}/mo</div>
+                    </td>
+                    <td className="text-center p-4">
+                      <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                        example.recommendation === 'Loan' 
+                          ? 'bg-blue-100 text-blue-800' 
+                          : 'bg-green-100 text-green-800'
+                      }`}>
+                        {example.recommendation}
+                      </span>
+                    </td>
+                    <td className="text-right p-4 font-semibold text-green-600">${example.savings.toLocaleString()}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="mt-8 grid md:grid-cols-2 gap-6">
+            <div className="bg-white rounded-lg p-6 shadow-sm border">
+              <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
+                When to Buy (Loan)
+              </h3>
+              <p className="text-muted-foreground mb-4">Consider buying equipment when:</p>
+              <ul className="space-y-2 text-sm">
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-gray-400 rounded-full mt-2 flex-shrink-0"></span>
+                  <span><strong>Long-term use:</strong> Equipment will be used for 5+ years</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-gray-400 rounded-full mt-2 flex-shrink-0"></span>
+                  <span><strong>Slow depreciation:</strong> Equipment holds value well over time</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-gray-400 rounded-full mt-2 flex-shrink-0"></span>
+                  <span><strong>Ownership benefits:</strong> Need to modify or customize equipment</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-gray-400 rounded-full mt-2 flex-shrink-0"></span>
+                  <span><strong>Strong cash flow:</strong> Can afford higher monthly payments</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="bg-white rounded-lg p-6 shadow-sm border">
+              <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+                When to Lease
+              </h3>
+              <p className="text-muted-foreground mb-4">Consider leasing equipment when:</p>
+              <ul className="space-y-2 text-sm">
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-gray-400 rounded-full mt-2 flex-shrink-0"></span>
+                  <span><strong>Technology equipment:</strong> Computers, software, communication systems</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-gray-400 rounded-full mt-2 flex-shrink-0"></span>
+                  <span><strong>Preserve cash flow:</strong> Need lower monthly payments</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-gray-400 rounded-full mt-2 flex-shrink-0"></span>
+                  <span><strong>Tax advantages:</strong> 100% deductible lease payments</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-gray-400 rounded-full mt-2 flex-shrink-0"></span>
+                  <span><strong>Upgrade flexibility:</strong> Want latest equipment every few years</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Calculator */}
       <LeaseVsBuyCalculator className="mb-12" />

@@ -20,6 +20,60 @@ export const metadata: Metadata = {
 }
 
 export default function EquipmentLoanPage() {
+  // Common equipment loan examples with realistic scenarios
+  const loanExamples = [
+    {
+      equipment: "Construction Equipment",
+      amount: 25000,
+      rate: 12,
+      term: 5,
+      monthlyPayment: 556,
+      totalInterest: 8360,
+      totalCost: 33360,
+      description: "Excavators, skid steers, small construction tools"
+    },
+    {
+      equipment: "Medical Equipment", 
+      amount: 75000,
+      rate: 10,
+      term: 5,
+      monthlyPayment: 1594,
+      totalInterest: 20640,
+      totalCost: 95640,
+      description: "Diagnostic equipment, dental chairs, medical devices"
+    },
+    {
+      equipment: "Manufacturing Machinery",
+      amount: 150000,
+      rate: 11,
+      term: 7,
+      monthlyPayment: 2387,
+      totalInterest: 50508,
+      totalCost: 200508,
+      description: "CNC machines, production lines, packaging equipment"
+    },
+    {
+      equipment: "Heavy Equipment",
+      amount: 300000,
+      rate: 9,
+      term: 7,
+      monthlyPayment: 4441,
+      totalInterest: 73044,
+      totalCost: 373044,
+      description: "Cranes, bulldozers, large industrial machinery"
+    },
+    {
+      equipment: "Specialized Industrial",
+      amount: 500000,
+      rate: 8,
+      term: 7,
+      monthlyPayment: 7134,
+      totalInterest: 99256,
+      totalCost: 599256,
+      description: "Advanced manufacturing systems, specialized production equipment"
+    }
+  ]
+
   const faqs = [
     {
       question: "How accurate are these calculations?",
@@ -73,6 +127,105 @@ export default function EquipmentLoanPage() {
           <span>✓ Mobile optimized</span>
         </div>
       </div>
+
+      {/* Common Equipment Loan Examples Section */}
+      <section className="mb-12">
+        <div className="bg-gradient-to-r from-blue-50 to-green-50 rounded-xl p-8">
+          <h2 className="text-3xl font-bold text-center mb-6">Common Equipment Loan Examples</h2>
+          <p className="text-lg text-muted-foreground text-center mb-8 max-w-4xl mx-auto">
+            See real-world equipment financing scenarios with typical loan amounts, rates, and terms. 
+            These examples show what businesses commonly finance and the monthly payments you can expect.
+          </p>
+          
+          <div className="overflow-x-auto">
+            <table className="w-full bg-white rounded-lg shadow-sm border border-gray-200">
+              <thead>
+                <tr className="bg-gray-50 border-b">
+                  <th className="text-left p-4 font-semibold">Equipment Type</th>
+                  <th className="text-right p-4 font-semibold">Loan Amount</th>
+                  <th className="text-right p-4 font-semibold">Rate</th>
+                  <th className="text-right p-4 font-semibold">Term</th>
+                  <th className="text-right p-4 font-semibold">Monthly Payment</th>
+                  <th className="text-right p-4 font-semibold">Total Interest</th>
+                  <th className="text-right p-4 font-semibold">Total Cost</th>
+                </tr>
+              </thead>
+              <tbody>
+                {loanExamples.map((example, index) => (
+                  <tr key={index} className="border-b hover:bg-gray-50">
+                    <td className="p-4">
+                      <div>
+                        <div className="font-medium">{example.equipment}</div>
+                        <div className="text-sm text-muted-foreground">{example.description}</div>
+                      </div>
+                    </td>
+                    <td className="text-right p-4 font-medium">${example.amount.toLocaleString()}</td>
+                    <td className="text-right p-4">{example.rate}%</td>
+                    <td className="text-right p-4">{example.term} years</td>
+                    <td className="text-right p-4 font-semibold text-green-600">${example.monthlyPayment.toLocaleString()}</td>
+                    <td className="text-right p-4">${example.totalInterest.toLocaleString()}</td>
+                    <td className="text-right p-4 font-medium">${example.totalCost.toLocaleString()}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="mt-8 grid md:grid-cols-2 gap-6">
+            <div className="bg-white rounded-lg p-6 shadow-sm border">
+              <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
+                Rate Factors
+              </h3>
+              <p className="text-muted-foreground mb-4">Equipment financing rates typically vary based on:</p>
+              <ul className="space-y-2 text-sm">
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-gray-400 rounded-full mt-2 flex-shrink-0"></span>
+                  <span><strong>Equipment type and age:</strong> New equipment gets better rates (8-12%) vs used (10-15%)</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-gray-400 rounded-full mt-2 flex-shrink-0"></span>
+                  <span><strong>Business credit score:</strong> 700+ scores qualify for lowest rates</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-gray-400 rounded-full mt-2 flex-shrink-0"></span>
+                  <span><strong>Down payment:</strong> 20%+ down can reduce rates by 1-2%</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-gray-400 rounded-full mt-2 flex-shrink-0"></span>
+                  <span><strong>Loan term:</strong> Shorter terms (3-5 years) get better rates than longer terms</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="bg-white rounded-lg p-6 shadow-sm border">
+              <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+                Financing Tips
+              </h3>
+              <p className="text-muted-foreground mb-4">Maximize your equipment loan approval chances:</p>
+              <ul className="space-y-2 text-sm">
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-gray-400 rounded-full mt-2 flex-shrink-0"></span>
+                  <span><strong>Compare multiple lenders:</strong> Rates can vary 2-4% between lenders</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-gray-400 rounded-full mt-2 flex-shrink-0"></span>
+                  <span><strong>Consider SBA loans:</strong> Often 1-3% lower rates for qualified businesses</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-gray-400 rounded-full mt-2 flex-shrink-0"></span>
+                  <span><strong>Prepare financial documents:</strong> 2+ years tax returns, bank statements</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-gray-400 rounded-full mt-2 flex-shrink-0"></span>
+                  <span><strong>Equipment must be business-use:</strong> Personal use equipment typically not eligible</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Calculator */}
       <EquipmentLoanCalculator className="mb-12" />

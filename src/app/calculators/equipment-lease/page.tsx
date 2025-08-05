@@ -19,6 +19,60 @@ export const metadata: Metadata = {
 }
 
 export default function EquipmentLeasePage() {
+  // Common equipment lease examples with realistic scenarios
+  const leaseExamples = [
+    {
+      equipment: "Office Equipment",
+      amount: 30000,
+      factorRate: 0.025,
+      term: 3,
+      residual: 9000,
+      monthlyPayment: 750,
+      totalPayments: 27000,
+      description: "Copiers, phone systems, computers"
+    },
+    {
+      equipment: "Medical Equipment", 
+      amount: 80000,
+      factorRate: 0.020,
+      term: 4,
+      residual: 24000,
+      monthlyPayment: 1600,
+      totalPayments: 76800,
+      description: "Diagnostic machines, dental equipment"
+    },
+    {
+      equipment: "Construction Equipment",
+      amount: 120000,
+      factorRate: 0.030,
+      term: 5,
+      residual: 30000,
+      monthlyPayment: 3600,
+      totalPayments: 216000,
+      description: "Excavators, skid steers, loaders"
+    },
+    {
+      equipment: "Manufacturing Machinery",
+      amount: 200000,
+      factorRate: 0.022,
+      term: 5,
+      residual: 50000,
+      monthlyPayment: 4400,
+      totalPayments: 264000,
+      description: "CNC machines, production equipment"
+    },
+    {
+      equipment: "Restaurant Equipment",
+      amount: 45000,
+      factorRate: 0.035,
+      term: 3,
+      residual: 9000,
+      monthlyPayment: 1575,
+      totalPayments: 56700,
+      description: "Commercial ovens, refrigeration, POS systems"
+    }
+  ]
+
   return (
     <div className="container mx-auto px-4 py-8 max-w-7xl">
       {/* Hero Section */}
@@ -37,6 +91,105 @@ export default function EquipmentLeasePage() {
           <span>✓ Mobile optimized</span>
         </div>
       </div>
+
+      {/* Common Equipment Lease Examples Section */}
+      <section className="mb-12">
+        <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-xl p-8">
+          <h2 className="text-3xl font-bold text-center mb-6">Common Equipment Lease Examples</h2>
+          <p className="text-lg text-muted-foreground text-center mb-8 max-w-4xl mx-auto">
+            See typical equipment leasing scenarios with factor rates, residual values, and monthly payments. 
+            These examples show what businesses commonly lease and the costs you can expect.
+          </p>
+          
+          <div className="overflow-x-auto">
+            <table className="w-full bg-white rounded-lg shadow-sm border border-gray-200">
+              <thead>
+                <tr className="bg-gray-50 border-b">
+                  <th className="text-left p-4 font-semibold">Equipment Type</th>
+                  <th className="text-right p-4 font-semibold">Equipment Value</th>
+                  <th className="text-right p-4 font-semibold">Factor Rate</th>
+                  <th className="text-right p-4 font-semibold">Term</th>
+                  <th className="text-right p-4 font-semibold">Residual Value</th>
+                  <th className="text-right p-4 font-semibold">Monthly Payment</th>
+                  <th className="text-right p-4 font-semibold">Total Payments</th>
+                </tr>
+              </thead>
+              <tbody>
+                {leaseExamples.map((example, index) => (
+                  <tr key={index} className="border-b hover:bg-gray-50">
+                    <td className="p-4">
+                      <div>
+                        <div className="font-medium">{example.equipment}</div>
+                        <div className="text-sm text-muted-foreground">{example.description}</div>
+                      </div>
+                    </td>
+                    <td className="text-right p-4 font-medium">${example.amount.toLocaleString()}</td>
+                    <td className="text-right p-4">{(example.factorRate * 100).toFixed(2)}%</td>
+                    <td className="text-right p-4">{example.term} years</td>
+                    <td className="text-right p-4">${example.residual.toLocaleString()}</td>
+                    <td className="text-right p-4 font-semibold text-green-600">${example.monthlyPayment.toLocaleString()}</td>
+                    <td className="text-right p-4 font-medium">${example.totalPayments.toLocaleString()}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="mt-8 grid md:grid-cols-2 gap-6">
+            <div className="bg-white rounded-lg p-6 shadow-sm border">
+              <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+                Factor Rate Guide
+              </h3>
+              <p className="text-muted-foreground mb-4">Equipment lease factor rates typically range:</p>
+              <ul className="space-y-2 text-sm">
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-gray-400 rounded-full mt-2 flex-shrink-0"></span>
+                  <span><strong>Technology equipment:</strong> 1.5-3.0% (0.015-0.030) due to rapid depreciation</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-gray-400 rounded-full mt-2 flex-shrink-0"></span>
+                  <span><strong>Medical equipment:</strong> 2.0-2.5% (0.020-0.025) for specialized devices</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-gray-400 rounded-full mt-2 flex-shrink-0"></span>
+                  <span><strong>Construction equipment:</strong> 2.5-3.5% (0.025-0.035) for heavy machinery</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-gray-400 rounded-full mt-2 flex-shrink-0"></span>
+                  <span><strong>Manufacturing equipment:</strong> 2.0-3.0% (0.020-0.030) depending on complexity</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="bg-white rounded-lg p-6 shadow-sm border">
+              <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
+                Lease Benefits
+              </h3>
+              <p className="text-muted-foreground mb-4">Why businesses choose equipment leasing:</p>
+              <ul className="space-y-2 text-sm">
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-gray-400 rounded-full mt-2 flex-shrink-0"></span>
+                  <span><strong>Lower monthly payments:</strong> Typically 20-30% less than loan payments</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-gray-400 rounded-full mt-2 flex-shrink-0"></span>
+                  <span><strong>Tax advantages:</strong> Lease payments are typically 100% tax deductible</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-gray-400 rounded-full mt-2 flex-shrink-0"></span>
+                  <span><strong>Technology updates:</strong> Easier to upgrade to newer equipment</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-gray-400 rounded-full mt-2 flex-shrink-0"></span>
+                  <span><strong>Preserve cash flow:</strong> Keep working capital for operations</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Calculator */}
       <EquipmentLeaseCalculator className="mb-12" />
