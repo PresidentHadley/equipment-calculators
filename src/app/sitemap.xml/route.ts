@@ -38,6 +38,50 @@ export function GET() {
       changeFrequency: 'weekly',
       priority: 0.8
     }
+    ,
+    {
+      url: `${baseUrl}/calculators/construction`,
+      lastModified: new Date().toISOString(),
+      changeFrequency: 'weekly',
+      priority: 0.9
+    },
+    {
+      url: `${baseUrl}/calculators/medical`,
+      lastModified: new Date().toISOString(),
+      changeFrequency: 'weekly',
+      priority: 0.9
+    },
+    {
+      url: `${baseUrl}/calculators/restaurant`,
+      lastModified: new Date().toISOString(),
+      changeFrequency: 'weekly',
+      priority: 0.85
+    },
+    {
+      url: `${baseUrl}/calculators/manufacturing`,
+      lastModified: new Date().toISOString(),
+      changeFrequency: 'weekly',
+      priority: 0.9
+    }
+    ,
+    {
+      url: `${baseUrl}/calculators`,
+      lastModified: new Date().toISOString(),
+      changeFrequency: 'weekly',
+      priority: 0.8
+    },
+    {
+      url: `${baseUrl}/glossary`,
+      lastModified: new Date().toISOString(),
+      changeFrequency: 'monthly',
+      priority: 0.6
+    },
+    {
+      url: `${baseUrl}/resources`,
+      lastModified: new Date().toISOString(),
+      changeFrequency: 'weekly',
+      priority: 0.7
+    }
   ]
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>

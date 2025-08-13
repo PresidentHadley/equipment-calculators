@@ -55,6 +55,23 @@ const calculators = [
     color: "from-teal-500 to-teal-600",
     features: ["Healthcare focus", "Tax benefits", "Technology upgrades"]
   }
+  ,
+  {
+    title: "Restaurant Equipment",
+    description: "Foodservice equipment financing with realistic terms and ROI modeling.",
+    href: "/calculators/restaurant",
+    icon: PieChart,
+    color: "from-red-500 to-rose-600",
+    features: ["Kitchen equipment", "Bundled items", "Seasonality"]
+  },
+  {
+    title: "Manufacturing Equipment",
+    description: "CNC and production asset financing with long-term options and ROI analysis.",
+    href: "/calculators/manufacturing",
+    icon: BarChart3,
+    color: "from-indigo-500 to-blue-700",
+    features: ["Long terms", "Tooling & install", "Productivity gains"]
+  }
 ]
 
 export default function Home() {
@@ -90,7 +107,7 @@ export default function Home() {
             </Button>
             <Button size="lg" variant="outline" asChild>
               <Link href="/about">
-                Learn Patrick&apos;s Story
+                About EquipmentCalculators.com
               </Link>
             </Button>
           </div>

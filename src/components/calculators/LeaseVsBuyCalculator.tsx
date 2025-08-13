@@ -21,7 +21,7 @@ import {
   formatCurrency,
   formatPercentage 
 } from '@/lib/utils'
-import type { ComparisonResults } from '@/types/calculator'
+import type { ComparisonResults, ComparisonInputs } from '@/types/calculator'
 
 const comparisonSchema = z.object({
   equipmentCost: z.number().min(1000).max(10000000),
@@ -51,9 +51,10 @@ const equipmentTypes = [
 interface LeaseVsBuyCalculatorProps {
   onResultsChange?: (results: ComparisonResults | null) => void
   className?: string
+  defaults?: Partial<ComparisonInputs>
 }
 
-export function LeaseVsBuyCalculator({ onResultsChange, className }: LeaseVsBuyCalculatorProps) {
+export function LeaseVsBuyCalculator({ onResultsChange, className, defaults }: LeaseVsBuyCalculatorProps) {
   const [results, setResults] = useState<ComparisonResults | null>(null)
   const [isCalculating, setIsCalculating] = useState(false)
   const [showDetails, setShowDetails] = useState(false)
@@ -74,7 +75,8 @@ export function LeaseVsBuyCalculator({ onResultsChange, className }: LeaseVsBuyC
       leaseFactorRate: 0.025,
       leaseTermMonths: 36,
       residualValue: 30000,
-      equipmentType: 'Construction Equipment'
+      equipmentType: 'Construction Equipment',
+      ...(defaults ?? {})
     }
   })
 

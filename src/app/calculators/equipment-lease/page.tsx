@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import { EquipmentLeaseCalculator } from '@/components/calculators/EquipmentLeaseCalculator'
+import { BreadcrumbStructuredData, FAQStructuredData, HowToStructuredData, QAPageStructuredData } from '@/components/seo/StructuredData'
 
 export const metadata: Metadata = {
   title: 'Equipment Lease Calculator - Free Equipment Leasing Calculator | EquipmentCalculators.com',
@@ -10,11 +11,19 @@ export const metadata: Metadata = {
     description: 'Calculate equipment lease payments using factor rates, residual values, and end-of-lease options. Get instant results.',
     type: 'website',
     url: 'https://equipmentcalculators.com/calculators/equipment-lease',
+    images: [
+      {
+        url: 'https://equipmentcalculators.com/api/og?title=Equipment%20Lease%20Calculator&subtitle=Factor%20Rates%2C%20Residuals%2C%20Options',
+        width: 1200,
+        height: 630
+      }
+    ]
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Equipment Lease Calculator - Free Equipment Leasing Calculator',
     description: 'Calculate equipment lease payments using factor rates and residual values.',
+    images: ['https://equipmentcalculators.com/api/og?title=Equipment%20Lease%20Calculator&subtitle=Factor%20Rates%2C%20Residuals%2C%20Options']
   }
 }
 
@@ -73,15 +82,41 @@ export default function EquipmentLeasePage() {
     }
   ]
 
+  const faqs = [
+    { question: 'What is a factor rate?', answer: 'A factor rate is a decimal (e.g., 0.025) used in leases to calculate payments. It is not an APR but correlates with one.' },
+    { question: 'What is residual value?', answer: 'Residual is the estimated value at lease end. Higher residual means lower monthly payments.' }
+  ]
+
   return (
     <div className="container mx-auto px-4 py-8 max-w-7xl">
+      <BreadcrumbStructuredData items={[
+        { name: 'Home', url: 'https://equipmentcalculators.com' },
+        { name: 'Calculators', url: 'https://equipmentcalculators.com/#calculators' },
+        { name: 'Equipment Lease Calculator', url: 'https://equipmentcalculators.com/calculators/equipment-lease' }
+      ]} />
+      <FAQStructuredData faqs={faqs} />
+      <QAPageStructuredData qa={[
+        { question: 'Can I negotiate residual value?', answer: 'Residuals are set by lessors, but different structures (FMV, $1 buyout, 10% purchase option) change end-of-lease cost.' },
+        { question: 'Are lease payments tax deductible?', answer: 'Operating lease payments are typically deductible as a business expense; consult your tax advisor.' },
+        { question: 'What if I exceed usage limits?', answer: 'Some leases include usage limits and excess wear-and-tear clauses. Review terms and estimate usage honestly.' }
+      ]} />
+      <HowToStructuredData
+        name="How to use the Equipment Lease Calculator"
+        steps={[
+          { name: 'Enter equipment cost', text: 'Total value of equipment to lease.' },
+          { name: 'Choose factor rate', text: 'Typical factor rates range from 0.015–0.040 based on credit and term.' },
+          { name: 'Set lease term', text: 'Usually 24–60 months.' },
+          { name: 'Set residual value', text: 'Estimated value at lease end (15–50% typical depending on equipment).' },
+          { name: 'Review results', text: 'See monthly lease payment and total payments. Compare end-of-lease options.' }
+        ]}
+      />
       {/* Hero Section */}
       <div className="text-center mb-8">
         <h1 className="text-4xl md:text-5xl font-bold mb-4">
           Equipment Lease Calculator
         </h1>
         <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-6">
-          Calculate lease payments using factor rates, residual values, and compare end-of-lease options. 
+          Calculate lease payments using <a href="/glossary#factor-rate" className="underline">factor rates</a>, <a href="/glossary#residual-value" className="underline">residual values</a>, and compare end-of-lease options. 
           Get instant equipment leasing numbers to make informed decisions.
         </p>
         <div className="flex flex-wrap justify-center gap-4 text-sm text-muted-foreground">
@@ -207,8 +242,8 @@ export default function EquipmentLeasePage() {
           <div className="space-y-4">
             <h3 className="text-xl font-semibold">Key Lease Terms</h3>
             <ul className="space-y-2 text-muted-foreground">
-              <li>• <strong>Factor Rate:</strong> The lease cost per dollar of equipment value (typically 0.015-0.040)</li>
-              <li>• <strong>Residual Value:</strong> Estimated equipment value at lease end (affects payments)</li>
+              <li>• <strong><a href="/glossary#factor-rate" className="underline">Factor Rate</a>:</strong> The lease cost per dollar of equipment value (typically 0.015-0.040)</li>
+              <li>• <strong><a href="/glossary#residual-value" className="underline">Residual Value</a>:</strong> Estimated equipment value at lease end (affects payments)</li>
               <li>• <strong>Lease Term:</strong> Length of the lease agreement (usually 24-60 months)</li>
               <li>• <strong>End-of-Lease Options:</strong> Return, purchase, or extend your lease</li>
             </ul>
@@ -357,6 +392,67 @@ export default function EquipmentLeasePage() {
               Most lessors require insurance coverage. Review the lease agreement for specific terms.
             </p>
           </details>
+        </div>
+      </div>
+
+      {/* In-Depth Guide */}
+      <div className="max-w-4xl mx-auto mt-16 space-y-8">
+        <h2 className="text-3xl font-bold text-center">In-Depth Guide: Equipment Leasing</h2>
+        <p className="text-muted-foreground text-lg text-center">
+          Understand factor rates, residual values, and how to compare leases against loans.
+        </p>
+        <div className="space-y-6">
+          <section>
+            <h3 className="text-xl font-semibold mb-2">Choosing a Lease Structure</h3>
+            <ul className="list-disc pl-6 text-muted-foreground space-y-1">
+              <li>FMV (Fair Market Value): lower payments, option to purchase at market price</li>
+              <li>$1 Buyout: higher payments, but ownership transfer at end for $1</li>
+              <li>10% Purchase Option: middle ground between FMV and $1 buyout</li>
+            </ul>
+          </section>
+          <section>
+            <h3 className="text-xl font-semibold mb-2">Factors that Impact Factor Rates</h3>
+            <ul className="list-disc pl-6 text-muted-foreground space-y-1">
+              <li>Credit profile and time in business</li>
+              <li>Equipment age and resale value volatility</li>
+              <li>Lease term and residual assumptions</li>
+            </ul>
+          </section>
+          <section>
+            <h3 className="text-xl font-semibold mb-2">When Leasing Makes Sense</h3>
+            <ul className="list-disc pl-6 text-muted-foreground space-y-1">
+              <li>Rapidly evolving technology and frequent upgrades</li>
+              <li>Need to preserve working capital</li>
+              <li>Desire for lower monthly payments vs total cost</li>
+            </ul>
+          </section>
+        </div>
+      </div>
+
+      {/* Related Calculators & Resources */}
+      <div className="max-w-4xl mx-auto mt-16 space-y-6">
+        <h2 className="text-3xl font-bold text-center">Related Calculators & Resources</h2>
+        <div className="grid md:grid-cols-2 gap-4">
+          <div className="p-4 border rounded-lg">
+            <h3 className="font-semibold mb-2">Compare or Explore</h3>
+            <ul className="space-y-1 text-blue-600">
+              <li><a className="hover:underline" href="/calculators/lease-vs-buy">Lease vs Buy Calculator</a></li>
+              <li><a className="hover:underline" href="/calculators/equipment-loan">Equipment Loan Calculator</a></li>
+              <li><a className="hover:underline" href="/calculators/equipment-roi">Equipment ROI Calculator</a></li>
+            </ul>
+          </div>
+          <div className="p-4 border rounded-lg">
+            <h3 className="font-semibold mb-2">Industry Pages</h3>
+            <ul className="space-y-1 text-blue-600">
+              <li><a className="hover:underline" href="/calculators/construction">Construction Equipment</a></li>
+              <li><a className="hover:underline" href="/calculators/medical">Medical Equipment</a></li>
+              <li><a className="hover:underline" href="/calculators/restaurant">Restaurant Equipment</a></li>
+              <li><a className="hover:underline" href="/calculators/manufacturing">Manufacturing Equipment</a></li>
+            </ul>
+          </div>
+        </div>
+        <div className="text-center text-sm text-muted-foreground">
+          See definitions in the <a className="underline" href="/glossary">Equipment Financing Glossary</a>.
         </div>
       </div>
     </div>

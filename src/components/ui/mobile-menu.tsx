@@ -114,6 +114,17 @@ export function MobileMenu() {
                   })}
                 </div>
 
+                {/* Industry Links */}
+                <div className="border-t pt-4 space-y-2">
+                  <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Industry Calculators</div>
+                  <div className="grid grid-cols-1 gap-2">
+                    <Link href="/calculators/construction" onClick={closeMenu} className="p-3 rounded-lg hover:bg-muted transition-colors text-sm">Construction Equipment</Link>
+                    <Link href="/calculators/medical" onClick={closeMenu} className="p-3 rounded-lg hover:bg-muted transition-colors text-sm">Medical Equipment</Link>
+                    <Link href="/calculators/restaurant" onClick={closeMenu} className="p-3 rounded-lg hover:bg-muted transition-colors text-sm">Restaurant Equipment</Link>
+                    <Link href="/calculators/manufacturing" onClick={closeMenu} className="p-3 rounded-lg hover:bg-muted transition-colors text-sm">Manufacturing Equipment</Link>
+                  </div>
+                </div>
+
                 {/* About Link */}
                 <div className="border-t pt-4">
                   <Link
@@ -121,9 +132,9 @@ export function MobileMenu() {
                     onClick={closeMenu}
                     className="block p-3 rounded-lg hover:bg-muted transition-colors"
                   >
-                    <div className="font-medium">About Patrick</div>
+                    <div className="font-medium">About</div>
                     <div className="text-sm text-muted-foreground">
-                      The story behind these calculators
+                      What EquipmentCalculators.com offers
                     </div>
                   </Link>
                 </div>

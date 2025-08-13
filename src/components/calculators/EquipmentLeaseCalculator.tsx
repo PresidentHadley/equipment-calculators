@@ -19,7 +19,7 @@ import {
   formatCurrency,
   formatPercentage 
 } from '@/lib/utils'
-import type { LeaseCalculatorResults } from '@/types/calculator'
+import type { LeaseCalculatorResults, LeaseCalculatorInputs } from '@/types/calculator'
 
 const leaseSchema = z.object({
   equipmentCost: z.number().min(1000).max(10000000),
@@ -52,9 +52,10 @@ const endOfLeaseOptions = [
 interface EquipmentLeaseCalculatorProps {
   onResultsChange?: (results: LeaseCalculatorResults | null) => void
   className?: string
+  defaults?: Partial<LeaseCalculatorInputs>
 }
 
-export function EquipmentLeaseCalculator({ onResultsChange, className }: EquipmentLeaseCalculatorProps) {
+export function EquipmentLeaseCalculator({ onResultsChange, className, defaults }: EquipmentLeaseCalculatorProps) {
   const [results, setResults] = useState<LeaseCalculatorResults | null>(null)
   const [isCalculating, setIsCalculating] = useState(false)
   const [showLeaseDetails, setShowLeaseDetails] = useState(false)
@@ -72,7 +73,8 @@ export function EquipmentLeaseCalculator({ onResultsChange, className }: Equipme
       factorRate: 0.025, // 2.5% factor rate (typical)
       termMonths: 36,
       residualValue: 30000, // 30% residual typical for 36 months
-      equipmentType: 'Construction Equipment'
+      equipmentType: 'Construction Equipment',
+      ...(defaults ?? {})
     }
   })
 

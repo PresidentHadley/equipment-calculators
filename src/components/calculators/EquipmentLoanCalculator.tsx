@@ -21,7 +21,7 @@ import {
   formatCurrency,
   formatPercentage 
 } from '@/lib/utils'
-import type { LoanCalculatorResults } from '@/types/calculator'
+import type { LoanCalculatorResults, LoanCalculatorInputs } from '@/types/calculator'
 
 const loanSchema = z.object({
   equipmentCost: z.number().min(1000).max(10000000),
@@ -48,9 +48,10 @@ const equipmentTypes = [
 interface EquipmentLoanCalculatorProps {
   onResultsChange?: (results: LoanCalculatorResults | null) => void
   className?: string
+  defaults?: Partial<LoanCalculatorInputs>
 }
 
-export function EquipmentLoanCalculator({ onResultsChange, className }: EquipmentLoanCalculatorProps) {
+export function EquipmentLoanCalculator({ onResultsChange, className, defaults }: EquipmentLoanCalculatorProps) {
   const [results, setResults] = useState<LoanCalculatorResults | null>(null)
   const [isCalculating, setIsCalculating] = useState(false)
   const [showAmortization, setShowAmortization] = useState(false)
@@ -68,7 +69,8 @@ export function EquipmentLoanCalculator({ onResultsChange, className }: Equipmen
       downPayment: 20000,
       interestRate: 6.5,
       termMonths: 60,
-      equipmentType: 'Construction Equipment'
+      equipmentType: 'Construction Equipment',
+      ...(defaults ?? {})
     }
   })
 

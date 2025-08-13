@@ -185,3 +185,148 @@ export function BreadcrumbStructuredData({ items }: BreadcrumbStructuredDataProp
     />
   )
 }
+
+interface ItemListStructuredDataProps {
+  name?: string
+  items: Array<{
+    name: string
+    url: string
+    description?: string
+  }>
+}
+
+export function ItemListStructuredData({ name, items }: ItemListStructuredDataProps) {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": name ?? 'Calculators',
+    "itemListElement": items.map((item, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "item": {
+        "@type": "WebPage",
+        "name": item.name,
+        "url": item.url,
+        ...(item.description ? { description: item.description } : {})
+      }
+    }))
+  }
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+    />
+  )
+}
+
+interface WebsiteStructuredDataProps {
+  url: string
+  name: string
+  searchUrlTemplate?: string
+}
+
+export function WebsiteStructuredData({ url, name, searchUrlTemplate }: WebsiteStructuredDataProps) {
+  const structuredData: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "url": url,
+    "name": name
+  }
+
+  if (searchUrlTemplate) {
+    structuredData.potentialAction = {
+      "@type": "SearchAction",
+      "target": `${url}${searchUrlTemplate}`,
+      "query-input": "required name=search_term_string"
+    }
+  }
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+    />
+  )
+}
+
+interface SiteNavigationStructuredDataProps {
+  items: Array<{ name: string; url: string }>
+}
+
+export function SiteNavigationStructuredData({ items }: SiteNavigationStructuredDataProps) {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "itemListElement": items.map((item, index) => ({
+      "@type": "SiteNavigationElement",
+      "position": index + 1,
+      "name": item.name,
+      "url": item.url
+    }))
+  }
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+    />
+  )
+}
+
+interface HowToStructuredDataProps {
+  name: string
+  description?: string
+  steps: Array<{ name: string; text: string }>
+}
+
+export function HowToStructuredData({ name, description, steps }: HowToStructuredDataProps) {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": name,
+    ...(description ? { description } : {}),
+    "step": steps.map((s, idx) => ({
+      "@type": "HowToStep",
+      "position": idx + 1,
+      "name": s.name,
+      "text": s.text
+    }))
+  }
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+    />
+  )
+}
+
+interface QAPageStructuredDataProps {
+  qa: Array<{
+    question: string
+    answer: string
+  }>
+}
+
+export function QAPageStructuredData({ qa }: QAPageStructuredDataProps) {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "QAPage",
+    "mainEntity": qa.map(item => ({
+      "@type": "Question",
+      "name": item.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.answer
+      }
+    }))
+  }
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+    />
+  )
+}

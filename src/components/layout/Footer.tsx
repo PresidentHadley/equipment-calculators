@@ -75,7 +75,7 @@ export function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <Link href="/about" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Patrick&apos;s Story
+                  About EquipmentCalculators.com
                 </Link>
               </li>
               <li>

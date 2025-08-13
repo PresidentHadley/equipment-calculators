@@ -4,7 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { PerformanceMonitor } from "@/components/ui/performance-monitor";
-import { BusinessStructuredData } from "@/components/seo/StructuredData";
+import { BusinessStructuredData, WebsiteStructuredData, SiteNavigationStructuredData } from "@/components/seo/StructuredData";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -76,6 +76,24 @@ export default function RootLayout({
           name="EquipmentCalculators.com"
           description="Free equipment financing calculators built by a 20+ year industry expert"
           url="https://equipmentcalculators.com"
+        />
+        <WebsiteStructuredData
+          url="https://equipmentcalculators.com"
+          name="EquipmentCalculators.com"
+          searchUrlTemplate="/search?q={search_term_string}"
+        />
+        <SiteNavigationStructuredData
+          items={[
+            { name: 'Equipment Loan Calculator', url: 'https://equipmentcalculators.com/calculators/equipment-loan' },
+            { name: 'Equipment Lease Calculator', url: 'https://equipmentcalculators.com/calculators/equipment-lease' },
+            { name: 'Lease vs Buy Calculator', url: 'https://equipmentcalculators.com/calculators/lease-vs-buy' },
+            { name: 'Equipment ROI Calculator', url: 'https://equipmentcalculators.com/calculators/equipment-roi' },
+            { name: 'Construction Equipment', url: 'https://equipmentcalculators.com/calculators/construction' },
+            { name: 'Medical Equipment', url: 'https://equipmentcalculators.com/calculators/medical' },
+            { name: 'Restaurant Equipment', url: 'https://equipmentcalculators.com/calculators/restaurant' },
+            { name: 'Manufacturing Equipment', url: 'https://equipmentcalculators.com/calculators/manufacturing' },
+            { name: 'About', url: 'https://equipmentcalculators.com/about' },
+          ]}
         />
         <PerformanceMonitor />
         <Header />

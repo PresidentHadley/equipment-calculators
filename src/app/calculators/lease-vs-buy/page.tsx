@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import { LeaseVsBuyCalculator } from '@/components/calculators/LeaseVsBuyCalculator'
+import { BreadcrumbStructuredData, FAQStructuredData, HowToStructuredData, QAPageStructuredData } from '@/components/seo/StructuredData'
 
 export const metadata: Metadata = {
   title: 'Lease vs Buy Calculator - Equipment Financing Comparison | EquipmentCalculators.com',
@@ -10,11 +11,19 @@ export const metadata: Metadata = {
     description: 'Compare equipment leasing vs buying with side-by-side analysis. See which option saves you money.',
     type: 'website',
     url: 'https://equipmentcalculators.com/calculators/lease-vs-buy',
+    images: [
+      {
+        url: 'https://equipmentcalculators.com/api/og?title=Lease%20vs%20Buy%20Calculator&subtitle=Compare%20Payments%2C%20ROI%2C%20Total%20Cost',
+        width: 1200,
+        height: 630
+      }
+    ]
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Lease vs Buy Calculator - Equipment Financing Comparison',
     description: 'Compare equipment leasing vs buying with detailed financial analysis.',
+    images: ['https://equipmentcalculators.com/api/og?title=Lease%20vs%20Buy%20Calculator&subtitle=Compare%20Payments%2C%20ROI%2C%20Total%20Cost']
   }
 }
 
@@ -75,8 +84,33 @@ export default function LeaseVsBuyPage() {
     }
   ]
 
+  const faqs = [
+    { question: 'Is leasing or buying cheaper?', answer: 'If equipment is kept long-term, buying usually costs less overall. Leasing can be cheaper for short terms or fast-obsolete gear.' },
+    { question: 'Do leases have tax advantages?', answer: 'Lease payments are typically fully deductible. Purchases offer depreciation and potential Section 179/bonus depreciation.' }
+  ]
+
   return (
     <div className="container mx-auto px-4 py-8 max-w-7xl">
+      <BreadcrumbStructuredData items={[
+        { name: 'Home', url: 'https://equipmentcalculators.com' },
+        { name: 'Calculators', url: 'https://equipmentcalculators.com/#calculators' },
+        { name: 'Lease vs Buy Calculator', url: 'https://equipmentcalculators.com/calculators/lease-vs-buy' }
+      ]} />
+      <FAQStructuredData faqs={faqs} />
+      <QAPageStructuredData qa={[
+        { question: 'Which is cheaper: leasing or buying?', answer: 'Buying usually wins on total cost when equipment is kept for its full life. Leasing can be cheaper for short terms or fast-obsolete equipment.' },
+        { question: 'Does leasing affect my balance sheet?', answer: 'Operating leases may be off-balance sheet, but accounting standards vary. Consult your CPA.' },
+        { question: 'Can I lease then buy later?', answer: 'Many leases include purchase options; terms vary by lessor and contract.' }
+      ]} />
+      <HowToStructuredData
+        name="How to compare Lease vs Buy"
+        steps={[
+          { name: 'Enter equipment cost & down payment', text: 'Start with a realistic budget and typical down payment (10–30%).' },
+          { name: 'Set loan terms', text: 'Choose APR and term based on lender quotes or typical ranges.' },
+          { name: 'Set lease terms', text: 'Pick factor rate, term, and residual based on equipment type.' },
+          { name: 'Review results', text: 'Compare monthly payments, total cost, and recommendation.' }
+        ]}
+      />
       {/* Hero Section */}
       <div className="text-center mb-8">
         <h1 className="text-4xl md:text-5xl font-bold mb-4">
@@ -434,6 +468,67 @@ export default function LeaseVsBuyPage() {
               the residual value, minus any early purchase discounts. Review your lease agreement for specific terms.
             </p>
           </details>
+        </div>
+      </div>
+
+      {/* In-Depth Guide */}
+      <div className="max-w-4xl mx-auto mt-16 space-y-8">
+        <h2 className="text-3xl font-bold text-center">In-Depth Guide: Lease vs Buy</h2>
+        <p className="text-muted-foreground text-lg text-center">
+          Learn when to lease, when to buy, and how to evaluate the trade-offs beyond monthly payment.
+        </p>
+        <div className="space-y-6">
+          <section>
+            <h3 className="text-xl font-semibold mb-2">Decision Factors</h3>
+            <ul className="list-disc pl-6 text-muted-foreground space-y-1">
+              <li>Equipment lifecycle and obsolescence risk</li>
+              <li>Cash flow constraints vs total cost optimization</li>
+              <li>Tax treatment (e.g., <a className="underline" href="/glossary#section-179">Section 179</a>, bonus depreciation) and timing of deductions</li>
+            </ul>
+          </section>
+          <section>
+            <h3 className="text-xl font-semibold mb-2">Modeling Tips</h3>
+            <ul className="list-disc pl-6 text-muted-foreground space-y-1">
+              <li>Model multiple rate/term scenarios to see sensitivity</li>
+              <li>Include maintenance and downtime in ROI modeling</li>
+              <li>Review residual assumptions carefully in leases</li>
+            </ul>
+          </section>
+          <section>
+            <h3 className="text-xl font-semibold mb-2">When Each Wins</h3>
+            <ul className="list-disc pl-6 text-muted-foreground space-y-1">
+              <li>Buying: long-term, high-resale, low obsolescence equipment</li>
+              <li>Leasing: fast-changing technology, cash preservation needs</li>
+              <li>Mixed: buy core assets, lease short-life peripherals</li>
+            </ul>
+          </section>
+        </div>
+      </div>
+
+      {/* Related Calculators & Resources */}
+      <div className="max-w-4xl mx-auto mt-16 space-y-6">
+        <h2 className="text-3xl font-bold text-center">Related Calculators & Resources</h2>
+        <div className="grid md:grid-cols-2 gap-4">
+          <div className="p-4 border rounded-lg">
+            <h3 className="font-semibold mb-2">Compare or Explore</h3>
+            <ul className="space-y-1 text-blue-600">
+              <li><a className="hover:underline" href="/calculators/equipment-loan">Equipment Loan Calculator</a></li>
+              <li><a className="hover:underline" href="/calculators/equipment-lease">Equipment Lease Calculator</a></li>
+              <li><a className="hover:underline" href="/calculators/equipment-roi">Equipment ROI Calculator</a></li>
+            </ul>
+          </div>
+          <div className="p-4 border rounded-lg">
+            <h3 className="font-semibold mb-2">Industry Pages</h3>
+            <ul className="space-y-1 text-blue-600">
+              <li><a className="hover:underline" href="/calculators/construction">Construction Equipment</a></li>
+              <li><a className="hover:underline" href="/calculators/medical">Medical Equipment</a></li>
+              <li><a className="hover:underline" href="/calculators/restaurant">Restaurant Equipment</a></li>
+              <li><a className="hover:underline" href="/calculators/manufacturing">Manufacturing Equipment</a></li>
+            </ul>
+          </div>
+        </div>
+        <div className="text-center text-sm text-muted-foreground">
+          See definitions in the <a className="underline" href="/glossary">Equipment Financing Glossary</a>.
         </div>
       </div>
     </div>

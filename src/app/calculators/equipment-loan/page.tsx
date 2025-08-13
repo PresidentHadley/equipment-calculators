@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import { EquipmentLoanCalculator } from '@/components/calculators/EquipmentLoanCalculator'
-import { CalculatorStructuredData, FAQStructuredData, BreadcrumbStructuredData } from '@/components/seo/StructuredData'
+import { CalculatorStructuredData, FAQStructuredData, BreadcrumbStructuredData, HowToStructuredData, QAPageStructuredData } from '@/components/seo/StructuredData'
 
 export const metadata: Metadata = {
   title: 'Equipment Loan Calculator - Free Equipment Financing Calculator | EquipmentCalculators.com',
@@ -11,11 +11,19 @@ export const metadata: Metadata = {
     description: 'Calculate monthly payments, total interest, and amortization schedule for equipment loans. Get instant results.',
     type: 'website',
     url: 'https://equipmentcalculators.com/calculators/equipment-loan',
+    images: [
+      {
+        url: 'https://equipmentcalculators.com/api/og?title=Equipment%20Loan%20Calculator&subtitle=Payments%2C%20Interest%2C%20Amortization',
+        width: 1200,
+        height: 630
+      }
+    ]
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Equipment Loan Calculator - Free Equipment Financing Calculator',
     description: 'Calculate monthly payments, total interest, and amortization schedule for equipment loans.',
+    images: ['https://equipmentcalculators.com/api/og?title=Equipment%20Loan%20Calculator&subtitle=Payments%2C%20Interest%2C%20Amortization']
   }
 }
 
@@ -108,7 +116,23 @@ export default function EquipmentLoanPage() {
         url="https://equipmentcalculators.com/calculators/equipment-loan"
       />
       <FAQStructuredData faqs={faqs} />
+      <QAPageStructuredData qa={[
+        { question: 'Can I get an equipment loan with bad credit?', answer: 'Yes, but rates may be higher and down payment requirements larger. Improving credit and offering more down payment can help.' },
+        { question: 'How long can I finance equipment?', answer: 'Common terms range 12–84 months. Heavier equipment sometimes qualifies for longer terms.' },
+        { question: 'Is an SBA loan better for equipment?', answer: 'SBA loans often have lower rates and longer terms but require more documentation and time to close.' }
+      ]} />
       <BreadcrumbStructuredData items={breadcrumbs} />
+      <HowToStructuredData
+        name="How to use the Equipment Loan Calculator"
+        description="Enter cost, down payment, rate, and term to estimate monthly payments and total cost."
+        steps={[
+          { name: 'Enter equipment cost', text: 'Input the total price of the equipment you want to finance.' },
+          { name: 'Set down payment', text: 'Move the slider or type an amount (10–30% typical).' },
+          { name: 'Choose interest rate', text: 'Select your expected APR. Try a range to compare scenarios.' },
+          { name: 'Set term length', text: 'Pick a term between 12–120 months depending on your needs.' },
+          { name: 'Review results', text: 'See monthly payment, total interest, and total cost instantly.' }
+        ]}
+      />
       
       <div className="container mx-auto px-4 py-8 max-w-7xl">
       {/* Hero Section */}
@@ -117,7 +141,7 @@ export default function EquipmentLoanPage() {
           Equipment Loan Calculator
         </h1>
         <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-6">
-          Calculate monthly payments, total interest, and see your complete amortization schedule. 
+          Calculate monthly payments, total interest, and see your complete <a href="/glossary#amortization" className="underline">amortization schedule</a>. 
           Get instant equipment financing numbers to make informed decisions.
         </p>
         <div className="flex flex-wrap justify-center gap-4 text-sm text-muted-foreground">
@@ -244,8 +268,8 @@ export default function EquipmentLoanPage() {
             <h3 className="text-xl font-semibold">What You Need to Know</h3>
             <ul className="space-y-2 text-muted-foreground">
               <li>• <strong>Equipment Cost:</strong> Total price of the equipment you want to finance</li>
-                          <li>• <strong>Down Payment:</strong> Amount you&apos;ll pay upfront (typically 10-30%)</li>
-            <li>• <strong>Interest Rate:</strong> Annual interest rate for equipment loans (usually 3-15%)</li>
+              <li>• <strong><a href="/glossary#down-payment" className="underline">Down Payment</a>:</strong> Amount you&apos;ll pay upfront (typically 10-30%)</li>
+            <li>• <strong><a href="/glossary#apr" className="underline">Interest Rate (APR)</a>:</strong> Annual interest rate for equipment loans (usually 3-15%)</li>
               <li>• <strong>Loan Term:</strong> Length of the loan in months (12-120 months typical)</li>
             </ul>
           </div>
@@ -348,6 +372,67 @@ export default function EquipmentLoanPage() {
               or writing down your results. Future updates will include save functionality.
             </p>
           </details>
+        </div>
+      </div>
+
+      {/* In-Depth Guide */}
+      <div className="max-w-4xl mx-auto mt-16 space-y-8">
+        <h2 className="text-3xl font-bold text-center">In-Depth Guide: Equipment Loans</h2>
+        <p className="text-muted-foreground text-lg text-center">
+          Learn how lenders price equipment loans, what affects your rate, and how to structure terms for lower total cost.
+        </p>
+        <div className="space-y-6">
+          <section>
+            <h3 className="text-xl font-semibold mb-2">How Lenders Price Loans</h3>
+            <ul className="list-disc pl-6 text-muted-foreground space-y-1">
+              <li>Risk-based pricing: business credit, time in business, financials</li>
+              <li>Collateral strength: equipment type, age, resale value</li>
+              <li>Loan structure: down payment, term length, personal guaranty</li>
+            </ul>
+          </section>
+          <section>
+            <h3 className="text-xl font-semibold mb-2">Ways to Lower Your Rate</h3>
+            <ul className="list-disc pl-6 text-muted-foreground space-y-1">
+              <li>Increase down payment to reduce loan-to-value (LTV)</li>
+              <li>Choose a shorter term to reduce lender risk</li>
+              <li>Provide complete financials and equipment quotes upfront</li>
+            </ul>
+          </section>
+          <section>
+            <h3 className="text-xl font-semibold mb-2">Common Mistakes to Avoid</h3>
+            <ul className="list-disc pl-6 text-muted-foreground space-y-1">
+              <li>Only comparing monthly payment instead of total cost</li>
+              <li>Underestimating maintenance and operating expenses</li>
+              <li>Picking terms that outlast the useful life of the equipment</li>
+            </ul>
+          </section>
+        </div>
+      </div>
+
+      {/* Related Calculators & Resources */}
+      <div className="max-w-4xl mx-auto mt-16 space-y-6">
+        <h2 className="text-3xl font-bold text-center">Related Calculators & Resources</h2>
+        <div className="grid md:grid-cols-2 gap-4">
+          <div className="p-4 border rounded-lg">
+            <h3 className="font-semibold mb-2">Compare or Explore</h3>
+            <ul className="space-y-1 text-blue-600">
+              <li><a className="hover:underline" href="/calculators/lease-vs-buy">Lease vs Buy Calculator</a></li>
+              <li><a className="hover:underline" href="/calculators/equipment-lease">Equipment Lease Calculator</a></li>
+              <li><a className="hover:underline" href="/calculators/equipment-roi">Equipment ROI Calculator</a></li>
+            </ul>
+          </div>
+          <div className="p-4 border rounded-lg">
+            <h3 className="font-semibold mb-2">Industry Pages</h3>
+            <ul className="space-y-1 text-blue-600">
+              <li><a className="hover:underline" href="/calculators/construction">Construction Equipment</a></li>
+              <li><a className="hover:underline" href="/calculators/medical">Medical Equipment</a></li>
+              <li><a className="hover:underline" href="/calculators/restaurant">Restaurant Equipment</a></li>
+              <li><a className="hover:underline" href="/calculators/manufacturing">Manufacturing Equipment</a></li>
+            </ul>
+          </div>
+        </div>
+        <div className="text-center text-sm text-muted-foreground">
+          See definitions in the <a className="underline" href="/glossary">Equipment Financing Glossary</a>.
         </div>
       </div>
     </div>
