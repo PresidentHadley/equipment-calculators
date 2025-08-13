@@ -79,7 +79,9 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <span className="text-muted-foreground">Contact (Coming Soon)</span>
+                <Link href="/contact" className="text-muted-foreground hover:text-foreground transition-colors">
+                  Contact
+                </Link>
               </li>
               <li>
                 <span className="text-muted-foreground">Lender Network (Coming Soon)</span>

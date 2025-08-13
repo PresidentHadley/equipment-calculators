@@ -1,0 +1,68 @@
+"use client"
+import { useState } from 'react'
+import { Metadata } from 'next'
+import { BreadcrumbStructuredData } from '@/components/seo/StructuredData'
+
+export const metadata: Metadata = {
+  title: 'Contact | EquipmentCalculators.com',
+  description: 'Contact EquipmentCalculators.com. Send a message and we will get back to you shortly.',
+  alternates: { canonical: 'https://equipmentcalculators.com/contact' }
+}
+
+export default function ContactPage() {
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [message, setMessage] = useState('')
+  const [status, setStatus] = useState<'idle'|'sending'|'sent'|'error'>('idle')
+
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setStatus('sending')
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, message })
+      })
+      if (!res.ok) throw new Error('Send failed')
+      setStatus('sent')
+      setName(''); setEmail(''); setMessage('')
+    } catch {
+      setStatus('error')
+    }
+  }
+
+  const breadcrumbs = [
+    { name: 'Home', url: 'https://equipmentcalculators.com' },
+    { name: 'Contact', url: 'https://equipmentcalculators.com/contact' }
+  ]
+
+  return (
+    <div className="container mx-auto px-4 py-12 max-w-2xl">
+      <BreadcrumbStructuredData items={breadcrumbs} />
+      <h1 className="text-4xl font-bold mb-4">Contact</h1>
+      <p className="text-muted-foreground mb-8">Have a question or feature request? Send a message below.</p>
+      <form onSubmit={onSubmit} className="space-y-4">
+        <div>
+          <label className="block text-sm font-medium mb-1">Name</label>
+          <input value={name} onChange={e=>setName(e.target.value)} required className="calculator-input w-full h-11 rounded-lg border px-3" />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-1">Email</label>
+          <input type="email" value={email} onChange={e=>setEmail(e.target.value)} required className="calculator-input w-full h-11 rounded-lg border px-3" />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-1">Message</label>
+          <textarea value={message} onChange={e=>setMessage(e.target.value)} required rows={6} className="calculator-input w-full rounded-lg border px-3 py-2" />
+        </div>
+        <button disabled={status==='sending'} className="h-11 rounded-lg px-4 bg-gradient-to-r from-blue-500 to-green-500 text-white font-medium">
+          {status==='sending' ? 'Sending...' : 'Send Message'}
+        </button>
+        {status==='sent' && <div className="text-green-600 text-sm">Message sent. We will reply shortly.</div>}
+        {status==='error' && <div className="text-red-600 text-sm">There was a problem sending your message.</div>}
+      </form>
+    </div>
+  )
+}
+
+

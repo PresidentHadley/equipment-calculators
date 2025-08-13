@@ -82,6 +82,13 @@ export function GET() {
       changeFrequency: 'weekly',
       priority: 0.7
     }
+    ,
+    {
+      url: `${baseUrl}/contact`,
+      lastModified: new Date().toISOString(),
+      changeFrequency: 'monthly',
+      priority: 0.5
+    }
   ]
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
