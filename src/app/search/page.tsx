@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
-import Link from 'next/link'
-import { Input } from '@/components/ui/input'
-import { useMemo, useState } from 'react'
+import { BreadcrumbStructuredData } from '@/components/seo/StructuredData'
+import { Suspense } from 'react'
+import SearchClient from './search-client'
 
 export const metadata: Metadata = {
   title: 'Search | EquipmentCalculators.com',
@@ -22,33 +22,17 @@ const pages = [
 
 export default function SearchPage({ searchParams }: { searchParams: { q?: string } }) {
   const initial = typeof searchParams?.q === 'string' ? searchParams.q : ''
-  const [query, setQuery] = useState(initial)
-
-  const results = useMemo(() => {
-    const q = (query || '').toLowerCase().trim()
-    if (!q) return pages
-    return pages.filter(p => p.title.toLowerCase().includes(q))
-  }, [query])
-
+  const breadcrumbs = [
+    { name: 'Home', url: 'https://equipmentcalculators.com' },
+    { name: 'Search', url: 'https://equipmentcalculators.com/search' }
+  ]
   return (
     <div className="container mx-auto px-4 py-12 max-w-3xl">
+      <BreadcrumbStructuredData items={breadcrumbs} />
       <h1 className="text-3xl md:text-4xl font-bold mb-6">Search</h1>
-      <div className="mb-6">
-        <Input
-          label="Search calculators and pages"
-          type="text"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Try: equipment loan, lease vs buy, construction..."
-        />
-      </div>
-      <ul className="space-y-2">
-        {results.map((r) => (
-          <li key={r.href}>
-            <Link href={r.href} className="text-blue-600 hover:underline">{r.title}</Link>
-          </li>
-        ))}
-      </ul>
+      <Suspense>
+        <SearchClient initialQuery={initial} pages={pages} />
+      </Suspense>
     </div>
   )
 }

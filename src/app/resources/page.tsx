@@ -42,6 +42,24 @@ export default function ResourcesPage() {
           </div>
         ))}
       </div>
+
+      {/* External Resources */}
+      <div className="mt-12">
+        <h2 className="text-2xl font-semibold mb-4">External Resources</h2>
+        <ul className="list-disc pl-6 space-y-2">
+          <li>
+            <a
+              href="https://sbacalculators.com"
+              target="_blank"
+              rel="noopener"
+              className="text-blue-600 hover:underline"
+            >
+              SBA Loan Calculators (SBACalculators.com)
+            </a>
+            <span className="block text-sm text-muted-foreground">Calculate SBA 7(a) and 504 loan payments, fees, and amortization.</span>
+          </li>
+        </ul>
+      </div>
     </div>
   )
 }

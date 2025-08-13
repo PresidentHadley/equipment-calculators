@@ -16,6 +16,9 @@ export function Footer() {
             <p className="text-sm text-muted-foreground">
               Professional equipment financing calculators built by a 20+ year industry expert.
             </p>
+            <p className="text-xs text-muted-foreground">
+              Also visit: <a href="https://sbacalculators.com" target="_blank" rel="noopener" className="underline">SBACalculators.com</a> for SBA loan calculators.
+            </p>
           </div>
           
           <div>
