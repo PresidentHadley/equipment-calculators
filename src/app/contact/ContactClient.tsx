@@ -1,10 +1,10 @@
 "use client"
 import { useState } from 'react'
 
-export default function ContactClient() {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [message, setMessage] = useState('')
+export default function ContactClient({ initial }: { initial?: { name?: string; email?: string; message?: string } }) {
+  const [name, setName] = useState(initial?.name ?? '')
+  const [email, setEmail] = useState(initial?.email ?? '')
+  const [message, setMessage] = useState(initial?.message ?? '')
   const [status, setStatus] = useState<'idle'|'sending'|'sent'|'error'>('idle')
 
   const onSubmit = async (e: React.FormEvent) => {

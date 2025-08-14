@@ -350,6 +350,11 @@ export function LeaseVsBuyCalculator({ onResultsChange, className, defaults }: L
                           {formatCurrency(results.loan.monthlyPayment)}
                         </div>
                       </div>
+
+                      <div className="grid sm:grid-cols-2 gap-2">
+                        <a href="/contact" className="h-11 rounded-lg bg-gradient-to-r from-blue-500 to-green-500 text-white font-medium flex items-center justify-center">Contact a Lender</a>
+                        <a href="/resources" className="h-11 rounded-lg border flex items-center justify-center">Learn About Financing</a>
+                      </div>
                       
                       <div className="space-y-2 text-sm">
                         <div className="flex justify-between">

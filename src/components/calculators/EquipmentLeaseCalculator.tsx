@@ -265,6 +265,11 @@ export function EquipmentLeaseCalculator({ onResultsChange, className, defaults 
                       <div className="text-3xl font-bold">{formatCurrency(results.monthlyPayment)}</div>
                     </div>
 
+                    <div className="grid sm:grid-cols-2 gap-2">
+                      <a href="/contact" className="h-11 rounded-lg bg-gradient-to-r from-blue-500 to-green-500 text-white font-medium flex items-center justify-center">Contact a Lender</a>
+                      <a href="/resources" className="h-11 rounded-lg border flex items-center justify-center">Learn About Financing</a>
+                    </div>
+
                     <div className="grid grid-cols-2 gap-3">
                       <div className="bg-card border rounded-lg p-4">
                         <div className="text-xs text-muted-foreground mb-1">Total Payments</div>

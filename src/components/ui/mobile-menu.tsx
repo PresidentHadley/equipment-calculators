@@ -141,12 +141,17 @@ export function MobileMenu() {
 
                 {/* CTA */}
                 <div className="border-t pt-4">
-                  <Button asChild className="w-full" onClick={closeMenu}>
-                    <Link href="/calculators/equipment-loan">
-                      <Calculator className="h-4 w-4 mr-2" />
-                      Start Calculating
-                    </Link>
-                  </Button>
+                  <div className="grid grid-cols-1 gap-2">
+                    <Button asChild className="w-full" onClick={closeMenu}>
+                      <Link href="/calculators/equipment-loan">
+                        <Calculator className="h-4 w-4 mr-2" />
+                        Start Calculating
+                      </Link>
+                    </Button>
+                    <Button asChild variant="outline" className="w-full" onClick={closeMenu}>
+                      <Link href="/contact">Contact a Lender</Link>
+                    </Button>
+                  </div>
                 </div>
               </div>
             </motion.div>

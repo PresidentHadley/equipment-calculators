@@ -31,9 +31,10 @@ export function Header() {
 
         <div className="flex items-center gap-4">
           <Button asChild size="sm" className="hidden sm:flex bg-gradient-to-r from-blue-500 to-green-500 hover:from-blue-600 hover:to-green-600">
-            <Link href="/calculators/equipment-loan">
-              Start Calculating
-            </Link>
+            <Link href="/calculators/equipment-loan">Start Calculating</Link>
+          </Button>
+          <Button asChild size="sm" variant="outline" className="hidden sm:flex">
+            <Link href="/contact">Contact a Lender</Link>
           </Button>
           <MobileMenu />
         </div>
