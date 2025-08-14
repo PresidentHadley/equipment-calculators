@@ -3,8 +3,9 @@ import { Resend } from 'resend'
 
 export async function POST(request: NextRequest) {
   try {
-    const { name, email, message } = await request.json()
-    if (!name || !email || !message) {
+    const body = await request.json()
+    const { firstName, lastName, email, phone, businessName, loanType, amountRange, message } = body
+    if (!firstName || !lastName || !email || !message) {
       return new Response(JSON.stringify({ error: 'Missing fields' }), { status: 400 })
     }
 
@@ -17,12 +18,16 @@ export async function POST(request: NextRequest) {
     }
 
     const resend = new Resend(apiKey)
-    const subject = `New contact from EquipmentCalculators.com: ${name}`
+    const subject = `New contact from EquipmentCalculators.com: ${firstName} ${lastName}`
     const html = `
       <div>
         <h2>New Contact Submission</h2>
-        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Name:</strong> ${firstName} ${lastName}</p>
         <p><strong>Email:</strong> ${email}</p>
+        ${phone ? `<p><strong>Phone:</strong> ${phone}</p>` : ''}
+        ${businessName ? `<p><strong>Business:</strong> ${businessName}</p>` : ''}
+        ${loanType ? `<p><strong>Loan Type:</strong> ${loanType}</p>` : ''}
+        ${amountRange ? `<p><strong>Amount Range:</strong> ${amountRange}</p>` : ''}
         <p><strong>Message:</strong></p>
         <p>${message.replace(/\n/g, '<br/>')}</p>
       </div>
