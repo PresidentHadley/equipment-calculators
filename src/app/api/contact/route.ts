@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
       html
     })
 
-    if ((result as any).error) {
+    if ((result as { error?: unknown }).error) {
       return new Response(JSON.stringify({ error: 'Failed to send' }), { status: 500 })
     }
 

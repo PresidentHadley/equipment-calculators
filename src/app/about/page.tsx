@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { BusinessStructuredData, BreadcrumbStructuredData } from '@/components/seo/StructuredData'
 import { Calculator, Building, Code, Heart } from 'lucide-react'
 

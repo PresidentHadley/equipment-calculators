@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { useDebouncedCallback } from 'use-debounce'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Calculator, TrendingUp, DollarSign, Calendar } from 'lucide-react'
+import { Calculator, TrendingUp, Calendar } from 'lucide-react'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -53,7 +53,7 @@ interface EquipmentLoanCalculatorProps {
 
 export function EquipmentLoanCalculator({ onResultsChange, className, defaults }: EquipmentLoanCalculatorProps) {
   const [results, setResults] = useState<LoanCalculatorResults | null>(null)
-  const [isCalculating, setIsCalculating] = useState(false)
+  const [isCalculating] = useState(false)
   const [showAmortization, setShowAmortization] = useState(false)
 
   const { 

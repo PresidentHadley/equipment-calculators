@@ -143,7 +143,7 @@ export default function Home() {
           </div>
           
           <div className="calculator-grid">
-            {calculators.map((calc, index) => {
+            {calculators.map((calc) => {
               const IconComponent = calc.icon
               return (
                 <Card key={calc.href} className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1 relative overflow-hidden">

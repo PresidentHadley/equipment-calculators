@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { useDebouncedCallback } from 'use-debounce'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Calculator, TrendingUp, DollarSign, BarChart3, Clock, Target } from 'lucide-react'
+import { Calculator, TrendingUp, BarChart3, Target } from 'lucide-react'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -50,7 +50,7 @@ interface EquipmentROICalculatorProps {
 
 export function EquipmentROICalculator({ onResultsChange, className }: EquipmentROICalculatorProps) {
   const [results, setResults] = useState<ROICalculatorResults | null>(null)
-  const [isCalculating, setIsCalculating] = useState(false)
+  const [isCalculating] = useState(false)
   const [showProjections, setShowProjections] = useState(false)
 
   const { 

@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { useDebouncedCallback } from 'use-debounce'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Calculator, TrendingUp, DollarSign, BarChart3, CheckCircle, XCircle, AlertCircle } from 'lucide-react'
+import { Calculator, TrendingUp, DollarSign, BarChart3, CheckCircle, AlertCircle } from 'lucide-react'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -56,7 +56,7 @@ interface LeaseVsBuyCalculatorProps {
 
 export function LeaseVsBuyCalculator({ onResultsChange, className, defaults }: LeaseVsBuyCalculatorProps) {
   const [results, setResults] = useState<ComparisonResults | null>(null)
-  const [isCalculating, setIsCalculating] = useState(false)
+  const [isCalculating] = useState(false)
   const [showDetails, setShowDetails] = useState(false)
 
   const { 
