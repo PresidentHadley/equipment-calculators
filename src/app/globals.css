@@ -68,20 +68,21 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-    --primary: #3b82f6;
-    --primary-foreground: #ffffff;
-    --secondary: #1e293b;
-    --secondary-foreground: #f1f5f9;
-    --accent: #059669;
-    --accent-foreground: #ffffff;
-    --muted: #1e293b;
-    --muted-foreground: #94a3b8;
-    --card: #1e293b;
-    --card-foreground: #f1f5f9;
-    --border: #334155;
-    --input: #1e293b;
+    /* High-contrast, accessible dark theme */
+    --background: #0b1220;            /* near-slate-950 with a hint of blue */
+    --foreground: #e5edf9;            /* high-contrast off-white */
+    --primary: #60a5fa;               /* sky-400 for better legibility on dark */
+    --primary-foreground: #0b1220;
+    --secondary: #0f172a;             /* slate-900 */
+    --secondary-foreground: #e5edf9;
+    --accent: #10b981;                /* emerald-500 */
+    --accent-foreground: #04210f;
+    --muted: #0f172a;                 /* slate-900 */
+    --muted-foreground: #cbd5e1;      /* slate-300 for stronger contrast */
+    --card: #111827;                  /* gray-900 */
+    --card-foreground: #e2e8f0;       /* gray-200 */
+    --border: #475569;                /* slate-600 for visible outlines */
+    --input: #0f172a;                 /* match muted */
   }
 }
 
