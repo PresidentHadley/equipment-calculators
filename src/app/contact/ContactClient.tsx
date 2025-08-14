@@ -28,17 +28,17 @@ export default function ContactClient({ initial }: { initial?: { name?: string; 
     <form onSubmit={onSubmit} className="space-y-4">
       <div>
         <label className="block text-sm font-medium mb-1">Name</label>
-        <input value={name} onChange={e=>setName(e.target.value)} required className="calculator-input w-full h-11 rounded-lg border px-3" />
+        <input value={name} onChange={e=>setName(e.target.value)} required className="calculator-input w-full h-12 rounded-lg border px-3 bg-background text-foreground" />
       </div>
       <div>
         <label className="block text-sm font-medium mb-1">Email</label>
-        <input type="email" value={email} onChange={e=>setEmail(e.target.value)} required className="calculator-input w-full h-11 rounded-lg border px-3" />
+        <input type="email" value={email} onChange={e=>setEmail(e.target.value)} required className="calculator-input w-full h-12 rounded-lg border px-3 bg-background text-foreground" />
       </div>
       <div>
         <label className="block text-sm font-medium mb-1">Message</label>
-        <textarea value={message} onChange={e=>setMessage(e.target.value)} required rows={6} className="calculator-input w-full rounded-lg border px-3 py-2" />
+        <textarea value={message} onChange={e=>setMessage(e.target.value)} required rows={6} className="calculator-input w-full rounded-lg border px-3 py-2 bg-background text-foreground" />
       </div>
-      <button disabled={status==='sending'} className="h-11 rounded-lg px-4 bg-gradient-to-r from-blue-500 to-green-500 text-white font-medium">
+      <button disabled={status==='sending'} className="h-12 rounded-lg px-4 bg-gradient-to-r from-blue-500 to-green-500 text-white font-medium w-full sm:w-auto">
         {status==='sending' ? 'Sending...' : 'Send Message'}
       </button>
       {status==='sent' && <div className="text-green-600 text-sm">Message sent. We will reply shortly.</div>}
