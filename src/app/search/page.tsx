@@ -20,8 +20,9 @@ const pages = [
   { title: 'About EquipmentCalculators.com', href: '/about' },
 ]
 
-export default function SearchPage({ searchParams }: { searchParams: { q?: string } }) {
-  const initial = typeof searchParams?.q === 'string' ? searchParams.q : ''
+export default async function SearchPage({ searchParams }: { searchParams: Promise<{ q?: string | string[] }> }) {
+  const params = await searchParams
+  const initial = typeof params?.q === 'string' ? params.q : Array.isArray(params?.q) ? params.q[0] : ''
   const breadcrumbs = [
     { name: 'Home', url: 'https://equipmentcalculators.com' },
     { name: 'Search', url: 'https://equipmentcalculators.com/search' }
