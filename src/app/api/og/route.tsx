@@ -20,8 +20,7 @@ export async function GET(request: Request) {
 
   return new ImageResponse(
     (
-      // @ts-expect-error – JSX runtime for next/og
-      (<div
+      <div
         style={{
           height: '100%',
           width: '100%',
@@ -38,7 +37,7 @@ export async function GET(request: Request) {
       >
         <div style={{ fontSize: 64, marginBottom: 16 }}>{title}</div>
         <div style={{ fontSize: 28, fontWeight: 500, opacity: 0.9 }}>{subtitle}</div>
-      </div>)
+      </div>
     ),
     {
       width: 1200,
