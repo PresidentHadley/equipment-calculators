@@ -40,7 +40,10 @@ export async function POST(request: NextRequest) {
     }
 
     return new Response(JSON.stringify({ ok: true }), { status: 200 })
-  } catch (err) {
+  } catch (
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    err
+  ) {
     return new Response(JSON.stringify({ error: 'Invalid request' }), { status: 400 })
   }
 }
